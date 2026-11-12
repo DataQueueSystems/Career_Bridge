@@ -22,7 +22,7 @@ export const FOCUS_INTRO =
   'We empower youth and communities through skill development, employability, career guidance, counselling, and community support. Our programmes build job readiness, support mental and emotional well-being, and expand access to education and opportunity.';
 
 export const FOCUS_AREAS = [
-  { icon: GraduationCap, title: 'Skill & Career Development', text: 'Free internships, practical skill enhancement, career guidance, and industry-relevant learning help young people grow their technical, professional, and soft skills.' },
+  { icon: GraduationCap, title: 'Skill & Career Development', text: 'Internships, practical skill enhancement, career guidance, and industry-relevant learning help young people grow their technical, professional, and soft skills.' },
   { icon: Briefcase, title: 'Employability', text: 'Job-readiness training, aptitude assessments, interview preparation, job drives, and placement support connect students and job seekers with employers.' },
   { icon: MessageCircleHeart, title: 'Youth Counselling & Well-Being', text: 'Mental health counselling, addiction awareness, stress management, and wellness initiatives support young people through personal and career challenges.' },
   { icon: HeartHandshake, title: 'Social Welfare & Community Development', text: 'Scholarships, study materials, school support, and community programmes promote access to education, equal opportunity, and lasting social impact.' },
@@ -46,7 +46,7 @@ export const IMPACT = [
 ];
 
 export const PROGRAMMES = [
-  { icon: GraduationCap, title: 'Internships & Skill Enhancement Programmes', text: 'Free internships and skill enhancement programmes in AI, software development, management, and other professional domains provide practical knowledge, industry-relevant skills, and career development opportunities.' },
+  { icon: GraduationCap, title: 'Internships & Skill Enhancement Programmes', text: 'Internships and skill enhancement programmes in AI, software development, management, and other professional domains provide practical knowledge, industry-relevant skills, and career development opportunities.' },
   { icon: Mic, title: 'Seminars, Webinars & Educational Talks', text: 'Seminars, webinars, and educational talks cover IT, management, career development, and industry topics, helping students and job seekers build knowledge, professional skills, career awareness, and employability.' },
   { icon: School, title: 'Educational Institution Networking & Support', text: 'Connections with over 200 educational institutions strengthen partnerships and expand student access to skill development programmes, industry-relevant training, career guidance, and employability initiatives.' },
   { icon: Compass, title: 'Career Counselling & Guidance', text: 'We help students and job seekers identify their interests, strengths, and suitable career opportunities, supporting informed decisions about education, skill development, and future employment.' },

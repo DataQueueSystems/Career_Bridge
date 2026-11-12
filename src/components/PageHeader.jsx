@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
 const Squiggle = ({ color = '#FF6500' }) => (
-  <svg className="absolute -bottom-4 left-0 w-full" viewBox="0 0 220 14" fill="none" aria-hidden="true">
+  <svg className="absolute left-0 w-full" style={{ bottom: '-0.15em' }} viewBox="0 0 220 14" fill="none" aria-hidden="true">
     <path d="M3 9 C 30 2, 50 14, 80 7 S 130 2, 160 8 S 200 11, 217 4" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeDasharray="260" className="animate-draw" />
   </svg>
 );
@@ -15,7 +15,7 @@ export default function PageHeader({
   imagePos = 'object-top sm:object-[center_top]',
 }) {
   return (
-    <header className="relative isolate flex min-h-[26rem] sm:min-h-[32rem] lg:min-h-[36rem] flex-col justify-center overflow-hidden bg-gradient-to-br from-brand-pale via-brand-soft to-leaf-soft/60 pt-32 pb-16 sm:pt-40 sm:pb-20 lg:pt-44 lg:pb-24">
+    <header className="relative isolate flex min-h-[26rem] sm:min-h-[32rem] lg:min-h-[25rem] flex-col justify-center overflow-hidden bg-gradient-to-br from-brand-pale via-brand-soft to-leaf-soft/60 pt-32 pb-16 sm:pt-40 sm:pb-20 lg:pt-44 lg:pb-24">
       {/* Background image & exact same opacity overlays as Hero page */}
       {bgImage && (
         <div className="absolute inset-0 -z-20 overflow-hidden" aria-hidden="true">
@@ -56,18 +56,18 @@ export default function PageHeader({
 
         {/* Main Title - Dark Navy with Squiggle */}
         <h1 className="animate-rise mt-4 text-3xl font-bold leading-[1.2] text-navy-950 sm:text-4xl lg:text-5xl xl:text-6xl">
-          <span className="relative inline-block">
+          <span className="relative inline-block pb-5">
             {title}
             <Squiggle color="#FF6500" />
           </span>
         </h1>
 
         {/* Subtitle / Description */}
-        {children && (
-          <p className="animate-rise mx-auto mt-6 mb-4 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+        {/* {children && (
+          <p className="animate-rise mx-auto mt-6 mb-4 max-w-3xl text-justify leading-relaxed text-slate-700 sm:text-lg">
             {children}
           </p>
-        )}
+        )} */}
       </div>
     </header>
   );

@@ -132,7 +132,7 @@ export default function Navbar() {
                     <div className="text-sm font-bold text-navy-900 group-hover:text-brand transition duration-200">
                       Skill Development
                     </div>
-                    <p className="text-xs text-slate-500">Free internships, IT & domain training</p>
+                    <p className="text-xs text-slate-500">Internships, IT & domain training</p>
                   </div>
                 </Link>
               </div>

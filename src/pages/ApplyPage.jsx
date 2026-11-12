@@ -99,7 +99,7 @@ export default function ApplyPage({ initialTab }) {
             <div className="space-y-6">
               
               {/* Highlight Card */}
-              <div className="rounded-3xl border border-navy-800/10 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 p-7 text-white shadow-xl shadow-navy-900/15">
+              {/* <div className="rounded-3xl border border-navy-800/10 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 p-7 text-white shadow-xl shadow-navy-900/15">
                 <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wider text-leaf-lime">
                   Why CareerBridge?
                 </span>
@@ -111,7 +111,7 @@ export default function ApplyPage({ initialTab }) {
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-leaf-lime" />
-                    <span><strong>Free Training & Internships:</strong> Practical domain training in AI, software development, and management.</span>
+                    <span><strong>Training & Internships:</strong> Practical domain training in AI, software development, and management.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-leaf-lime" />
@@ -119,10 +119,10 @@ export default function ApplyPage({ initialTab }) {
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-leaf-lime" />
-                    <span><strong>No Registration Fees:</strong> 100% free social-impact initiative committed to youth empowerment.</span>
+                    <span><strong>No Registration Fees:</strong> Social-impact initiative committed to youth empowerment.</span>
                   </li>
                 </ul>
-              </div>
+              </div> */}
 
               {/* Assistance & Helpline */}
               <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">

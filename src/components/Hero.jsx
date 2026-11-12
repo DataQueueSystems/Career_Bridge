@@ -101,7 +101,7 @@ const SLIDES = [
     color: 'text-sun-deep',
     squiggle: '#168BE8',
     pill: 'Job-ready skills',
-    text: 'Practical training, free internships, seminars, and assessments build technical, professional, and soft skills.',
+    text: 'Practical training, internships, seminars, and assessments build technical, professional, and soft skills.',
     points: ['Technical skills', 'Professional skills', 'Soft skills'],
     primary: { to: '/portfolio', label: 'View programmes' },
     secondary: { to: '/contact', label: 'Join Us' },
@@ -196,7 +196,7 @@ export default function Home1() {
     `transition-all duration-700 ease-out ${
       i === index
         ? 'relative col-start-1 row-start-1 visible translate-x-0 opacity-100'
-        : `pointer-events-none invisible absolute inset-x-0 top-0 opacity-0 ${i < index ? '-translate-x-12' : 'translate-x-12'}`
+        : `pointer-events-none invisible absolute inset-x-0 top-0 opacity-0`
     }`;
 
   const arrow =
@@ -234,8 +234,8 @@ export default function Home1() {
         <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-brand-soft/90 to-transparent" />
       </div>
 
-      <div className="pointer-events-none absolute -left-20 top-32 -z-10 h-64 w-64 rounded-full bg-leaf/15 blur-2xl" />
-      <div className="pointer-events-none absolute right-0 top-0 -z-10 h-96 w-96 rounded-full bg-brand-light/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-20 top-32 -z-10 h-64 w-64 rounded-full bg-leaf/15 blur-2xl hidden sm:block" />
+      <div className="pointer-events-none absolute right-0 top-0 -z-10 h-96 w-96 rounded-full bg-brand-light/20 blur-3xl hidden sm:block" />
 
       {/* slides */}
       <div className="grid">
@@ -243,7 +243,7 @@ export default function Home1() {
           const active = index === i;
           return (
             <div key={s.step} className={slideClass(i)} aria-hidden={!active}>
-         <div className="mx-auto grid max-w-7xl items-center gap-4 px-4 py-4 sm:gap-8 sm:px-6 sm:py-6 lg:grid-cols-2 lg:gap-10 lg:px-12 lg:py-10">
+         <div className="mx-auto grid max-w-7xl items-center gap-4 px-3 py-4 sm:gap-8 sm:px-6 sm:py-6 lg:grid-cols-2 lg:gap-10 lg:px-12 lg:py-10">
                 {/* key restarts the entrance animations every time the slide comes in */}
                 <div key={active ? 'on' : 'off'} className="min-w-0">
                   {/* <p className="animate-rise inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-leaf-dark shadow-sm ring-1 ring-leaf/20 sm:text-sm">
@@ -266,7 +266,7 @@ export default function Home1() {
                     </h2>
                   )}
 
-                  <p className="animate-rise mt-4 max-w-xl text-base leading-7 text-slate-700 [animation-delay:240ms] sm:mt-5 sm:text-lg sm:leading-relaxed">{s.text}</p>
+                  <p className="animate-rise mt-4 max-w-xl text-sm leading-relaxed text-slate-700 [animation-delay:240ms] sm:mt-5 sm:text-lg sm:leading-relaxed text-justify">{s.text}</p>
 
                 {/* points row: wrap neatly on small screens */}
 <ul className="animate-rise mt-6 flex flex-wrap items-center gap-x-3 gap-y-3 [animation-delay:340ms] sm:mt-6 sm:gap-x-5 sm:gap-y-2">
@@ -278,34 +278,13 @@ export default function Home1() {
 </ul>
 
 {/* buttons row: stack gracefully on mobile */}
-<div className="animate-rise mt-7 flex flex-wrap items-center gap-3 [animation-delay:440ms] sm:mt-7 sm:gap-5">
+<div className="animate-rise mt-7 flex flex-wrap items-center justify-center gap-3 [animation-delay:440ms] sm:mt-7 sm:justify-start sm:gap-5">
   <Link
     to={s.primary.to}
     className="group inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-brand/30 transition duration-300 hover:-translate-y-0.5 hover:bg-navy-800 sm:px-7 sm:py-3.5 sm:text-base"
   >
     {s.primary.label} <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
   </Link>
-  {/* <Link to={s.secondary.to} className="group inline-flex items-center gap-2 text-sm font-semibold text-navy-800 sm:gap-3 sm:text-base">
-    <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-leaf-dark shadow-md transition duration-300 group-hover:bg-leaf group-hover:text-white sm:h-12 sm:w-12">
-      <span className="absolute inset-0 animate-ring rounded-full border-2 border-leaf" />
-      <Play size={18} fill="currentColor" />
-    </span>
-    {s.secondary.label}
-  </Link> */}
-</div>
-<div className="mt-3 flex w-full items-center justify-center gap-1 sm:hidden" role="group" aria-label="Choose a highlight">
-  {SLIDES.map((slide, slideIndex) => (
-    <button
-      key={slide.step}
-      type="button"
-      onClick={() => go(slideIndex)}
-      aria-label={`Show ${slide.step}`}
-      aria-current={active && slideIndex === index ? 'true' : undefined}
-      className="flex h-9 w-8 items-center justify-center"
-    >
-      <span className={`h-2 rounded-full transition-all ${slideIndex === index ? 'w-5 bg-brand' : 'w-2 bg-navy-800/30'}`} />
-    </button>
-  ))}
 </div>
                 </div>
 
@@ -316,6 +295,22 @@ export default function Home1() {
             </div>
           );
         })}
+      </div>
+
+      {/* Mobile dot pagination - rendered once outside slides */}
+      <div className="mt-3 flex w-full items-center justify-center gap-1 sm:hidden" role="group" aria-label="Choose a highlight">
+        {SLIDES.map((slide, slideIndex) => (
+          <button
+            key={slide.step}
+            type="button"
+            onClick={() => go(slideIndex)}
+            aria-label={`Show ${slide.step}`}
+            aria-current={slideIndex === index ? 'true' : undefined}
+            className="flex h-9 w-8 items-center justify-center"
+          >
+            <span className={`h-2 rounded-full transition-all ${slideIndex === index ? 'w-5 bg-brand' : 'w-2 bg-navy-800/30'}`} />
+          </button>
+        ))}
       </div>
 
       {/* < > arrows, centred on the left and right edges */}

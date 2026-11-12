@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, CheckCircle2, Sparkles, GraduationCap, Briefcase,
@@ -21,9 +22,9 @@ const PATHWAY_STEPS = [
   },
   {
     icon: GraduationCap,
-    title: '2. Free Skill Training',
+    title: '2. Skill Training',
     desc: 'Practical training modules in IT, AI, software engineering, business tools, and professional soft skills.',
-    points: ['Hands-on project experience', 'Industry mentor sessions', 'Free certifications'],
+    points: ['Hands-on project experience', 'Industry mentor sessions', 'Certification support'],
     tone: 'bg-brand-soft text-brand',
   },
   {
@@ -67,13 +68,15 @@ const TESTIMONIALS = [
 ];
 
 export default function Home() {
+  const [audienceTab, setAudienceTab] = useState('student'); // 'student' | 'employer'
+
   return (
     <>
       {/* 1. Hero Banner with Real Metrics & Carousel */}
       <Hero />
 
       {/* 2. Key Impact Statistics */}
-      {/* <Stats /> */}
+      <Stats />
 
       {/* 3. About Us: Mission, DQS SIP Initiative, and Journey */}
       <About />
@@ -82,16 +85,16 @@ export default function Home() {
       <Initiatives />
 
       {/* 5. Proven Pathway: How CareerBridge Works */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60 py-20 sm:py-28">
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand shadow-sm">
+            {/* <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand shadow-sm">
               <Sparkles size={14} /> Proven Methodology
-            </span>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl lg:text-5xl">
+            </span> */}
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl lg:text-5xl">
               Our 4-Step Pathway to Success
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+            <p className="mt-4 text-justify leading-relaxed text-slate-600 sm:text-lg">
               A structured, step-by-step pathway from rural communities and tier-2/3 institutions to sustainable, high-growth professional careers.
             </p>
           </Reveal>
@@ -104,9 +107,9 @@ export default function Home() {
                     <span className={`flex h-14 w-14 items-center justify-center rounded-2xl ${step.tone} transition duration-300 group-hover:scale-110 shadow-sm`}>
                       <step.icon size={26} />
                     </span>
-                    <span className="font-display text-2xl font-black text-slate-200 group-hover:text-brand/40 transition">
+                    {/* <span className="font-display text-2xl font-black text-slate-200 group-hover:text-brand/40 transition">
                       0{idx + 1}
-                    </span>
+                    </span> */}
                   </div>
                   <h3 className="mt-5 text-xl font-bold text-navy-950">{step.title}</h3>
                   <p className="mt-2.5 text-sm leading-relaxed text-slate-600">{step.desc}</p>
@@ -126,12 +129,189 @@ export default function Home() {
       </section>
 
       {/* 6. Dual-Audience Action Hub: Students & Employers */}
-      <section className="py-16 sm:py-24 bg-white border-y border-slate-100">
+      <section className="py-12 sm:py-20 lg:py-24 bg-white border-y border-slate-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-2">
+          <Reveal className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+            <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl lg:text-5xl">
+              Get Involved
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+              Whether you're a student seeking career opportunities or an employer looking for skilled talent, CareerBridge connects you to what matters.
+            </p>
+          </Reveal>
+
+          {/* ============================================================== */}
+          {/* MOBILE VIEW ONLY (Interactive Segmented Selector & Focus Card) */}
+          {/* ============================================================== */}
+          <div className="block lg:hidden">
+            {/* Segmented Pill Switcher */}
+            <div className="flex items-center justify-center mb-6">
+              <div className="inline-flex p-1 bg-slate-100/90 rounded-2xl border border-slate-200/80 shadow-inner max-w-sm w-full">
+                <button
+                  type="button"
+                  onClick={() => setAudienceTab('student')}
+                  className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                    audienceTab === 'student'
+                      ? 'bg-white text-navy-950 shadow-md ring-1 ring-slate-200/80'
+                      : 'text-slate-500 hover:text-navy-900'
+                  }`}
+                >
+                  <GraduationCap size={16} className={audienceTab === 'student' ? 'text-brand' : 'text-slate-400'} />
+                  <span>For Students</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAudienceTab('employer')}
+                  className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                    audienceTab === 'employer'
+                      ? 'bg-white text-navy-950 shadow-md ring-1 ring-slate-200/80'
+                      : 'text-slate-500 hover:text-navy-900'
+                  }`}
+                >
+                  <Building2 size={16} className={audienceTab === 'employer' ? 'text-leaf-dark' : 'text-slate-400'} />
+                  <span>For Employers</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Card: For Youth & Students */}
+            {audienceTab === 'student' && (
+              <div className="relative overflow-hidden rounded-3xl border-2 border-brand/20 bg-gradient-to-br from-brand-pale via-white to-white p-6 shadow-xl shadow-brand/5 animate-fade">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
+                    <GraduationCap size={14} /> For Youth & Students
+                  </span>
+                  {/* <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Step 01</span> */}
+                </div>
+
+                <h3 className="mt-4 text-xl font-bold text-navy-950">
+                  Launch Your Career With Industry Skills
+                </h3>
+                <p className="mt-2.5 text-xs leading-relaxed text-slate-600">
+                  Are you a degree student, engineering graduate, or job seeker from a rural or non-metro background? Access domain training, resume building, mock interviews, and corporate placement drives.
+                </p>
+
+                {/* 2x2 Clean Benefit Badges */}
+                <div className="mt-5 grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-leaf shrink-0" />
+                    <span className="truncate">IT & AI Training</span>
+                  </div>
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-leaf shrink-0" />
+                    <span className="truncate">Direct Job Drives</span>
+                  </div>
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-leaf shrink-0" />
+                    <span className="truncate">Career Counselling</span>
+                  </div>
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-leaf shrink-0" />
+                    <span className="truncate">Scholarships & Books</span>
+                  </div>
+                </div>
+
+                {/* Full-width touch-friendly actions */}
+                <div className="mt-6 flex flex-col gap-2.5">
+                  <Link
+                    to="/apply/job"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white shadow-md shadow-brand/20 transition active:scale-[0.98] text-center"
+                  >
+                    <span>Apply for Job Placement</span>
+                    <ArrowRight size={16} />
+                  </Link>
+                  <Link
+                    to="/apply/skill-development"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl border-2 border-brand/30 bg-white px-5 py-3 text-sm font-bold text-brand transition active:scale-[0.98] text-center"
+                  >
+                    <span>Skill Development</span>
+                  </Link>
+                </div>
+
+                {/* Quick Switch Helper */}
+                <button
+                  type="button"
+                  onClick={() => setAudienceTab('employer')}
+                  className="mt-4 w-full text-center text-xs font-semibold text-slate-400 hover:text-leaf-dark transition"
+                >
+                  Looking to hire? Switch to Employer view →
+                </button>
+              </div>
+            )}
+
+            {/* Mobile Card: For Employers & Colleges */}
+            {audienceTab === 'employer' && (
+              <div className="relative overflow-hidden rounded-3xl border-2 border-leaf/30 bg-gradient-to-br from-leaf-soft/40 via-white to-white p-6 shadow-xl shadow-leaf/5 animate-fade">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-leaf-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-leaf-dark">
+                    <Building2 size={14} /> For Employers & Colleges
+                  </span>
+                  {/* <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Step 02</span> */}
+                </div>
+
+                <h3 className="mt-4 text-xl font-bold text-navy-950">
+                  Hire Pre-Trained Talent & Partner With Us
+                </h3>
+                <p className="mt-2.5 text-xs leading-relaxed text-slate-600">
+                  Connect directly with verified, pre-screened talent across Dakshina Kannada, Udupi, and Karnataka-Kerala regions. Collaborate for corporate placement drives, CSR sponsorships, or school adoption.
+                </p>
+
+                {/* 2x2 Clean Benefit Badges */}
+                <div className="mt-5 grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-brand shrink-0" />
+                    <span className="truncate">100+ Hiring Partners</span>
+                  </div>
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-brand shrink-0" />
+                    <span className="truncate">Zero Recruitment Cost</span>
+                  </div>
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-brand shrink-0" />
+                    <span className="truncate">Campus Drives</span>
+                  </div>
+                  <div className="rounded-xl bg-white/90 p-2.5 border border-slate-200/70 shadow-sm flex items-center gap-2">
+                    <CheckCircle2 size={15} className="text-brand shrink-0" />
+                    <span className="truncate">CSR Partnerships</span>
+                  </div>
+                </div>
+
+                {/* Full-width touch-friendly actions */}
+                <div className="mt-6 flex flex-col gap-2.5">
+                  <a
+                    href="/contact"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-leaf px-5 py-3 text-sm font-bold text-white shadow-md shadow-leaf/20 transition active:scale-[0.98] text-center"
+                  >
+                    <span>Partner With Us</span>
+                    <ArrowRight size={16} />
+                  </a>
+                  <Link
+                    to="/portfolio"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl border-2 border-leaf/30 bg-white px-5 py-3 text-sm font-bold text-leaf-dark transition active:scale-[0.98] text-center"
+                  >
+                    <span>View Track Record</span>
+                  </Link>
+                </div>
+
+                {/* Quick Switch Helper */}
+                <button
+                  type="button"
+                  onClick={() => setAudienceTab('student')}
+                  className="mt-4 w-full text-center text-xs font-semibold text-slate-400 hover:text-brand transition"
+                >
+                  Looking for training? Switch to Student view →
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* ============================================================== */}
+          {/* DESKTOP VIEW ONLY (Side-by-side Dual Audience Cards)           */}
+          {/* ============================================================== */}
+          <div className="hidden lg:grid gap-8 lg:grid-cols-2">
             {/* For Job Seekers & Students */}
             <Reveal>
-              <div className="relative overflow-hidden rounded-3xl border-2 border-brand/20 bg-gradient-to-br from-brand-pale/50 via-white to-white p-8 sm:p-10 shadow-lg shadow-brand/5 flex flex-col justify-between h-full">
+              <div className="relative overflow-hidden rounded-3xl border-2 border-brand/20 bg-gradient-to-br from-brand-pale/50 via-white to-white p-8 lg:p-10 shadow-lg shadow-brand/5 flex flex-col justify-between h-full">
                 <div>
                   <span className="rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-brand">
                     For Youth & Students
@@ -140,34 +320,34 @@ export default function Home() {
                     Launch Your Career With Industry Skills
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
-                    Are you a degree student, engineering graduate, or job seeker from a rural or non-metro background? Access free domain training, resume building, mock interviews, and corporate placement drives.
+                    Are you a degree student, engineering graduate, or job seeker from a rural or non-metro background? Access domain training, resume building, mock interviews, and corporate placement drives.
                   </p>
                   <div className="mt-6 grid grid-cols-2 gap-3 text-xs font-semibold text-slate-700">
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-leaf" /> Free IT & AI Training
+                      <CheckCircle2 size={15} className="text-leaf shrink-0" /> IT & AI Training
                     </div>
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-leaf" /> Direct Job Drives
+                      <CheckCircle2 size={15} className="text-leaf shrink-0" /> Direct Job Drives
                     </div>
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-leaf" /> Career Counselling
+                      <CheckCircle2 size={15} className="text-leaf shrink-0" /> Career Counselling
                     </div>
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-leaf" /> Scholarships & Books
+                      <CheckCircle2 size={15} className="text-leaf shrink-0" /> Scholarships & Books
                     </div>
                   </div>
                 </div>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     to="/apply/job"
-                    className="inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3 text-sm font-bold text-white shadow-md shadow-brand/20 transition hover:bg-navy-900"
+                    className="inline-flex items-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-brand/20 transition hover:bg-navy-900"
                   >
                     <span>Apply for Job Placement</span>
                     <ArrowRight size={16} />
                   </Link>
                   <Link
                     to="/apply/skill-development"
-                    className="inline-flex items-center gap-2 rounded-xl border border-brand/40 bg-white px-5 py-3 text-sm font-bold text-brand transition hover:bg-brand-soft"
+                    className="inline-flex items-center gap-2 rounded-xl border border-brand/40 bg-white px-5 py-3.5 text-sm font-bold text-brand transition hover:bg-brand-soft"
                   >
                     <span>Skill Development</span>
                   </Link>
@@ -177,7 +357,7 @@ export default function Home() {
 
             {/* For Employers & Educational Institutions */}
             <Reveal delay={150}>
-              <div className="relative overflow-hidden rounded-3xl border-2 border-leaf/30 bg-gradient-to-br from-leaf-soft/40 via-white to-white p-8 sm:p-10 shadow-lg shadow-leaf/5 flex flex-col justify-between h-full">
+              <div className="relative overflow-hidden rounded-3xl border-2 border-leaf/30 bg-gradient-to-br from-leaf-soft/40 via-white to-white p-8 lg:p-10 shadow-lg shadow-leaf/5 flex flex-col justify-between h-full">
                 <div>
                   <span className="rounded-full bg-leaf-soft px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-leaf-dark">
                     For Employers & Colleges
@@ -190,30 +370,30 @@ export default function Home() {
                   </p>
                   <div className="mt-6 grid grid-cols-2 gap-3 text-xs font-semibold text-slate-700">
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-brand" /> 100+ Hiring Partners
+                      <CheckCircle2 size={15} className="text-brand shrink-0" /> 100+ Hiring Partners
                     </div>
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-brand" /> Zero Recruitment Cost
+                      <CheckCircle2 size={15} className="text-brand shrink-0" /> Zero Recruitment Cost
                     </div>
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-brand" /> Campus Drives
+                      <CheckCircle2 size={15} className="text-brand shrink-0" /> Campus Drives
                     </div>
                     <div className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-brand" /> CSR Partnerships
+                      <CheckCircle2 size={15} className="text-brand shrink-0" /> CSR Partnerships
                     </div>
                   </div>
                 </div>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a
-                    href="#contact"
-                    className="inline-flex items-center gap-2 rounded-xl bg-leaf px-6 py-3 text-sm font-bold text-white shadow-md shadow-leaf/20 transition hover:bg-leaf-dark"
+                    href="/contact"
+                    className="inline-flex items-center gap-2 rounded-xl bg-leaf px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-leaf/20 transition hover:bg-leaf-dark"
                   >
                     <span>Partner With CareerBridge</span>
                     <ArrowRight size={16} />
                   </a>
                   <Link
                     to="/portfolio"
-                    className="inline-flex items-center gap-2 rounded-xl border border-leaf/40 bg-white px-5 py-3 text-sm font-bold text-leaf-dark transition hover:bg-leaf-soft"
+                    className="inline-flex items-center gap-2 rounded-xl border border-leaf/40 bg-white px-5 py-3.5 text-sm font-bold text-leaf-dark transition hover:bg-leaf-soft"
                   >
                     <span>View Track Record</span>
                   </Link>
@@ -268,7 +448,7 @@ export default function Home() {
       </section> */}
 
       {/* 8. Contact Form on Home Page */}
-      <Contact />
+      {/* <Contact /> */}
 
       {/* 9. Bottom Call-To-Action Band */}
       <CtaBand />

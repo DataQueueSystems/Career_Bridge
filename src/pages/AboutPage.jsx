@@ -14,7 +14,7 @@ export default function AboutPage() {
       >
         Opportunity begins with access. We help young people build skills, find guidance, and prepare for a successful professional future across rural communities and non-metro cities.
       </PageHeader>
-      <About />
+      <About hideHeader={true} />
     </>
   );
 }

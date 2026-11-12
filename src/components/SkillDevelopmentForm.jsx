@@ -238,7 +238,7 @@ export default function SkillDevelopmentForm({ onSuccess }) {
             <Sparkles size={14} /> Training & Upskilling
           </span>
           <h2 className="mt-2 text-2xl font-bold text-navy-900">Skill Development Application</h2>
-          <p className="text-sm text-slate-500">Apply for free internships, technical skill workshops, and career enhancement programmes.</p>
+          <p className="text-sm text-slate-500">Apply for internships, technical skill workshops, and career enhancement programmes.</p>
         </div>
       </div>
 

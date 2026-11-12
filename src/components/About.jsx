@@ -50,6 +50,7 @@
 //     </section>
 //   );
 // }
+import { useLocation } from 'react-router-dom';
 import { Home, Sprout, Building2, ChevronDown, Globe, GraduationCap, MapPin, TrendingUp } from 'lucide-react';
 import Reveal from './Reveal.jsx';
 
@@ -60,9 +61,9 @@ const B = ({ children }) => (
 );
 
 const JOURNEY = [
-  { icon: Home, title: 'Communities', text: 'Rural areas and non-metro cities', tone: 'bg-leaf-soft text-leaf-dark' },
-  { icon: Sprout, title: 'Skills & guidance', text: 'Training, counselling, and career planning', tone: 'bg-sun-soft text-sun-deep' },
-  { icon: Building2, title: 'Opportunities', text: 'Education, employment, and well-being', tone: 'bg-brand-soft text-brand' },
+  { icon: Home, title: 'Free Internship', text: 'Practical skills & hands-on project training', tone: 'bg-leaf-soft text-leaf-dark' },
+  { icon: Sprout, title: 'Free Job Placement', text: 'Direct hiring drives with 100+ corporats', tone: 'bg-sun-soft text-sun-deep' },
+  { icon: Building2, title: 'Free Career Counselling', text: '1-on-1 career guidance & well-being support', tone: 'bg-brand-soft text-brand' },
 ];
 
 /* small icon badge shown beside each paragraph */
@@ -172,7 +173,10 @@ function DotGrid({ className = '' }) {
   );
 }
 
-export default function About() {
+export default function About({ hideHeader = false }) {
+  const { pathname } = useLocation();
+  const isAboutPage = hideHeader || pathname.startsWith('/about');
+
   return (
     <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-white to-brand-pale/60 py-16 sm:py-24">
       <style>{ABOUT_CSS}</style>
@@ -189,19 +193,17 @@ export default function About() {
       </svg>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="mb-9 text-center sm:mb-12">
-          {/* <span className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-white/80 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-brand shadow-sm">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-leaf" />
-            About us
-          </span> */}
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl lg:text-5xl">
-            Who we are<span className="text-brand">.</span>
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            Opportunity begins with access to skills, guidance, and meaningful career opportunities.
-          </p>
-          <span className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-brand to-leaf" />
-        </Reveal>
+        {!isAboutPage && (
+          <Reveal className="mb-9 text-center sm:mb-12">
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl lg:text-5xl">
+              Who we are<span className="text-brand">.</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+              Opportunity begins with access to skills, guidance, and meaningful career opportunities.
+            </p>
+            <span className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-brand to-leaf" />
+          </Reveal>
+        )}
         <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-0">
           <Reveal>
             <div className="relative mx-auto w-full max-w-md">
@@ -224,7 +226,7 @@ export default function About() {
                         <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl sm:h-12 sm:w-12 sm:rounded-full ${tone} transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                           <Icon size={22} />
                         </span>
-                        <div className="min-w-0"><h3 className="text-base font-bold sm:text-lg">{title}</h3><p className="text-sm leading-snug text-slate-500">{text}</p></div>
+                        <div className="min-w-0 flex-1"><h3 className="text-base font-bold sm:text-lg">{title}</h3><p className="text-xs sm:text-sm text-slate-500 leading-snug truncate">{text}</p></div>
                       </div>
                       {i < JOURNEY.length - 1 && <ChevronDown className="mx-auto my-1 animate-floaty text-brand" size={22} />}
                     </li>
@@ -235,7 +237,7 @@ export default function About() {
           </Reveal>
 
           {/* timeline-style paragraphs */}
-          <div className="relative space-y-4 text-base leading-relaxed sm:space-y-5 sm:text-md">
+          <div className="relative space-y-4 text-base  leading-relaxed sm:space-y-5 sm:text-md">
             {[
               { title: 'About CareerBridge', content: <><B>CareerBridge is a social-impact initiative of DQS</B>, an IT company engaged in IT services and software development, with client projects across India, the UAE, and the UK. Established as a dedicated division under DQS’s Social Impact Project (SIP), CareerBridge undertakes community development with a commitment to youth empowerment and social well-being.</> },
               { title: 'What we do', content: <>Our work brings together <B>skill development, employability, career development, scholarships, career guidance, youth counselling, and well-being support</B>. We help young people enhance their abilities, explore career opportunities, and prepare for a successful professional future.</> },
@@ -251,7 +253,7 @@ export default function About() {
                     </span>
                     <div className="min-w-0 flex-1">
                       <h3 className="mb-1 font-display text-lg font-bold leading-tight text-navy-900 transition-colors duration-300 group-hover:text-brand">{para.title}</h3>
-                      <p className="text-left text-sm leading-relaxed text-slate-600 sm:text-base">{para.content}</p>
+                      <p className="text-justify text-sm leading-relaxed  text-slate-600 sm:text-base">{para.content}</p>
                     </div>
                   </article>
                 </Reveal>

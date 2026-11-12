@@ -33,9 +33,9 @@ export const FOCUS_AREAS_DATA = [
       {
         num: '01',
         title: 'Internships & Skill Enhancement Programmes',
-        summary: 'Free internships in AI, software development, management, and other domains.',
-        detail: 'We have delivered and continue to offer free internships and skill enhancement programmes in AI, software development, management and other professional domains. Students and job seekers gain practical knowledge, industry-relevant skills and career development opportunities to thrive in modern workplaces.',
-        highlights: ['Hands-on project work', 'Mentorship by senior IT professionals', 'Free certification of completion'],
+        summary: 'Internships in AI, software development, management, and other domains.',
+        detail: 'We have delivered and continue to offer internships and skill enhancement programmes in AI, software development, management and other professional domains. Students and job seekers gain practical knowledge, industry-relevant skills and career development opportunities to thrive in modern workplaces.',
+        highlights: ['Hands-on project work', 'Mentorship by senior IT professionals', 'Certification of completion'],
       },
       {
         num: '02',

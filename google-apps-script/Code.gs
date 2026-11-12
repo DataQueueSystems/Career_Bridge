@@ -7,15 +7,15 @@
  *  3. 'Enquiries'           -> from /contact
  *
  * Sends Orange & Blue branded emails with CareerBridge Logo to:
- *  - Admin: queuedocx@gmail.com
+ *  - Admin: operations.careerbridge@gmail.com
  *  - Applicant/Candidate confirmation
  */
 
-const OWNER_EMAIL = 'queuedocx@gmail.com';
+const OWNER_EMAIL = 'operations.careerbridge@gmail.com';
 const COMPANY = {
   name: 'CareerBridge Foundation',
   tagline: 'Bridging Skills to Opportunities · Empowering Youth',
-  email: 'queuedocx@gmail.com',
+  email: 'operations.careerbridge@gmail.com',
   phone: '+91 9876765676',
   website: '',
   address: 'Mangalore, Karnataka, India',
