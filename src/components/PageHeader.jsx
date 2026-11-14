@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
@@ -17,6 +18,12 @@ export default function PageHeader({
   className = '',
   overlayClassName,
 }) {
+  useEffect(() => {
+    if (title) {
+      document.title = `${title} | CareerBridge Foundation`;
+    }
+  }, [title]);
+
   return (
     <header className={`relative isolate flex ${minHeight} flex-col justify-center overflow-hidden bg-gradient-to-br from-brand-pale via-brand-soft to-leaf-soft/60 pt-32 pb-16 sm:pt-40 sm:pb-20 lg:pt-44 lg:pb-24 ${className}`}>
       {/* Background image & exact same opacity overlays as Hero page */}

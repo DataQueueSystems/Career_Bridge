@@ -7,11 +7,10 @@
  *  3. 'Enquiries'           -> from /contact
  *
  * Sends Orange & Blue branded emails with CareerBridge Logo to:
- *  - Admin: operations.careerbridge@gmail.com
- *  - Applicant/Candidate confirmation
+ *  - Applicant/Candidate confirmation (Owner alerts commented out)
  */
 
-const OWNER_EMAIL = 'operations.careerbridge@gmail.com';
+// const OWNER_EMAIL = 'operations.careerbridge@gmail.com'; // Owner alerts disabled per request
 const COMPANY = {
   name: 'CareerBridge Foundation',
   tagline: 'Bridging Skills to Opportunities · Empowering Youth',
@@ -223,7 +222,8 @@ function doPost(e) {
         lock.releaseLock();
       }
 
-      // Send Admin Alert Email
+      // Send Admin Alert Email (Disabled per request - owner email commented out)
+      /*
       try {
         sendJobOwnerEmail({
           submissionId: submissionId,
@@ -236,6 +236,7 @@ function doPost(e) {
       } catch (err) {
         console.error('Job owner email error: ' + err);
       }
+      */
 
       // Send Applicant Confirmation Email
       try {
@@ -303,7 +304,8 @@ function doPost(e) {
         lock.releaseLock();
       }
 
-      // Send Admin Alert Email
+      // Send Admin Alert Email (Disabled per request - owner email commented out)
+      /*
       try {
         sendSkillOwnerEmail({
           submissionId: submissionId,
@@ -318,6 +320,7 @@ function doPost(e) {
       } catch (err) {
         console.error('Skill owner email error: ' + err);
       }
+      */
 
       // Send Applicant Confirmation Email
       try {
@@ -393,12 +396,15 @@ function doPost(e) {
     let adminEmailSent = false;
     let userEmailSent = false;
 
+    // Send Admin Alert Email (Disabled per request - owner email commented out)
+    /*
     try {
       sendContactOwnerEmail({ name: name, email: email, phone: phone, role: role, message: message });
       adminEmailSent = true;
     } catch (error) {
       console.error('Owner email error: ' + error);
     }
+    */
 
     try {
       sendContactUserConfirmationEmail({ name: name, email: email, message: message });

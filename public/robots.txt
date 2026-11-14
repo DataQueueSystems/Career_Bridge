@@ -1,0 +1,6 @@
+# Robots.txt for CareerBridge Foundation
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://careerbridgefoundation.org/sitemap.xml
