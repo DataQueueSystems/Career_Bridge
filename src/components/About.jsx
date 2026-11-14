@@ -173,7 +173,7 @@ function DotGrid({ className = '' }) {
   );
 }
 
-export default function About({ hideHeader = false }) {
+export default function About({ hideHeader = false, intro }) {
   const { pathname } = useLocation();
   const isAboutPage = hideHeader || pathname.startsWith('/about');
 
@@ -193,7 +193,13 @@ export default function About({ hideHeader = false }) {
       </svg>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {!isAboutPage && (
+        {intro ? (
+          <Reveal className="mb-10 text-center sm:mb-14">
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">
+              {intro}
+            </p>
+          </Reveal>
+        ) : !isAboutPage && (
           <Reveal className="mb-9 text-center sm:mb-12">
             <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl lg:text-5xl">
               Who we are<span className="text-brand">.</span>
@@ -204,9 +210,9 @@ export default function About({ hideHeader = false }) {
             <span className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-brand to-leaf" />
           </Reveal>
         )}
-        <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-0">
+        <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-12">
           <Reveal>
-            <div className="relative mx-auto w-full max-w-md">
+            <div className="relative mx-auto w-full max-w-md lg:sticky lg:top-28">
               {/* soft offset shape behind the card */}
               <div className="absolute -inset-3 -rotate-2 rounded-[2.25rem] bg-gradient-to-br from-brand/10 to-leaf/20" />
 
@@ -237,12 +243,12 @@ export default function About({ hideHeader = false }) {
           </Reveal>
 
           {/* timeline-style paragraphs */}
-          <div className="relative space-y-4 text-base  leading-relaxed sm:space-y-5 sm:text-md">
+          <div className="relative space-y-4 text-base leading-relaxed sm:space-y-5">
             {[
               { title: 'About CareerBridge', content: <><B>CareerBridge is a social-impact initiative of DQS</B>, an IT company engaged in IT services and software development, with client projects across India, the UAE, and the UK. Established as a dedicated division under DQS’s Social Impact Project (SIP), CareerBridge undertakes community development with a commitment to youth empowerment and social well-being.</> },
               { title: 'What we do', content: <>Our work brings together <B>skill development, employability, career development, scholarships, career guidance, youth counselling, and well-being support</B>. We help young people enhance their abilities, explore career opportunities, and prepare for a successful professional future.</> },
               { title: 'Rooted in our communities', content: <>Our work reaches <B>Dakshina Kannada, Udupi, Uttara Kannada, Kasaragod, and Karnataka–Kerala border regions</B>, as well as other parts of Karnataka and Kerala, with a special emphasis on rural communities and non-metro cities.</> },
-              { title: 'An inclusive future', content: <>Through our programmes and outreach, we strive to ensure young people, regardless of geographical background, can access the <B>guidance, support, and opportunities</B> needed to build meaningful, sustainable careers.</> },
+              { title: 'Our Vision', content: <>To bridge the gap between rural and urban opportunities by empowering youth from villages and non-metro communities with industry-relevant skills, career guidance, and access to meaningful employment opportunities, enabling them to build successful and sustainable careers</>},
             ].map((para, i) => {
               const { icon: Icon, tone } = BADGES[i];
               return (
@@ -253,7 +259,7 @@ export default function About({ hideHeader = false }) {
                     </span>
                     <div className="min-w-0 flex-1">
                       <h3 className="mb-1 font-display text-lg font-bold leading-tight text-navy-900 transition-colors duration-300 group-hover:text-brand">{para.title}</h3>
-                      <p className="text-justify text-sm leading-relaxed  text-slate-600 sm:text-base">{para.content}</p>
+                      <p className="text-justify text-sm leading-relaxed text-slate-600 sm:text-base">{para.content}</p>
                     </div>
                   </article>
                 </Reveal>

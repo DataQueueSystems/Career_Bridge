@@ -6,9 +6,14 @@
   html { scroll-behavior: smooth; overflow-x: hidden; }
   body { @apply bg-white font-sans text-slate-600 antialiased; overflow-x: hidden; max-width: 100vw; }
   img, svg { display: block; max-width: 100%; }
-  h1, h2, h3, h4 { @apply font-display text-navy-900; }
+  h1, h2, h3, h4 { @apply font-display text-navy-900 transition-colors duration-200; }
   section[id] { scroll-margin-top: 4.5rem; }
   :focus-visible { @apply outline outline-2 outline-offset-2 outline-brand; }
+  a, button {
+    transition-property: color, background-color, border-color, transform, box-shadow, opacity;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-duration: 250ms;
+  }
   body.modal-open header {
     opacity: 0 !important;
     pointer-events: none !important;
@@ -17,5 +22,15 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+}
+
+/* Global Smooth Transitions & Interactive Accents */
+@layer utilities {
+  .smooth-transition {
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hover-lift {
+    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl;
   }
 }

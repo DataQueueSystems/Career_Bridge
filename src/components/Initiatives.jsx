@@ -551,16 +551,16 @@ export default function Initiatives() {
                       setActiveTab(i);
                       setExpandedCard(null);
                     }}
-                    className={`flex items-center gap-2.5 rounded-2xl px-5 py-3.5 text-sm font-bold transition-all duration-300 ${
+                    className={`flex items-center gap-2.5 rounded-2xl px-5 py-3.5 text-sm font-bold transition-all duration-300 transform active:scale-95 ${
                       isActive
-                        ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-xl shadow-navy-950/20 ring-2 ring-leaf'
-                        : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                        ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-xl shadow-navy-950/20 ring-2 ring-leaf scale-105'
+                        : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-md'
                     }`}
                   >
-                    <span className={`flex h-6 w-6 items-center justify-center rounded-lg text-xs font-extrabold ${isActive ? 'bg-leaf text-white' : 'bg-slate-100 text-slate-500'}`}>
+                    <span className={`flex h-6 w-6 items-center justify-center rounded-lg text-xs font-extrabold transition-all duration-300 ${isActive ? 'bg-leaf text-white rotate-3 scale-110' : 'bg-slate-100 text-slate-500'}`}>
                       {area.num}
                     </span>
-                    <span>{area.title}</span>
+                    <span className="transition-colors duration-200">{area.title}</span>
                   </button>
                 );
               })}
@@ -569,8 +569,8 @@ export default function Initiatives() {
 
           {/* Active Focus Area Featured Showcase */}
           <Reveal delay={200}>
-            <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-10 shadow-2xl shadow-navy-900/10">
-              <div className="grid items-start gap-12 lg:grid-cols-12">
+            <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-10 shadow-2xl shadow-navy-900/10 transition-all duration-500">
+              <div key={activeTab} className="grid items-start gap-12 lg:grid-cols-12 animate-tab-pane">
                 
                 {/* Left Column: Title, Tagline, & Detailed Sub-programmes */}
                 <div className="lg:col-span-7">
@@ -583,10 +583,10 @@ export default function Initiatives() {
                     </span>
                   </div> */}
 
-                  <h3 className="mt-3 text-3xl font-bold text-navy-950 lg:text-4xl">
+                  <h3 className="mt-3 text-3xl font-bold text-navy-950 transition-colors duration-300 lg:text-4xl">
                     {currentArea.title}
                   </h3>
-                  <p className="mt-3 text-base leading-relaxed text-slate-600 lg:text-lg">
+                  <p className="mt-3 text-base leading-relaxed text-slate-600 transition-colors duration-300 lg:text-lg">
                     {currentArea.tagline}
                   </p>
 
@@ -662,18 +662,18 @@ export default function Initiatives() {
                   <div className="mt-8 flex flex-wrap items-center gap-4">
                     <Link
                       to={currentArea.applyLink}
-                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-leaf to-leaf-dark px-6 py-3.5 font-bold text-white shadow-lg shadow-leaf/30 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+                      className="group/btn inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-leaf to-leaf-dark px-6 py-3.5 font-bold text-white shadow-lg shadow-leaf/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-leaf/40 active:translate-y-0"
                     >
                       <span>{currentArea.applyText}</span>
-                      <ArrowRight size={18} />
+                      <ArrowRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </Link>
 
                     <button
                       type="button"
                       onClick={() => setReadMoreArea(activeTab)}
-                      className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-navy-800 transition hover:bg-slate-50"
+                      className="group/eye inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-navy-800 transition-all duration-300 hover:border-brand/40 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0"
                     >
-                      <Eye size={17} className="text-brand" />
+                      <Eye size={17} className="text-brand transition-transform duration-300 group-hover/eye:scale-110" />
                       <span>View All Details</span>
                     </button>
                   </div>
@@ -681,16 +681,17 @@ export default function Initiatives() {
 
                 {/* Right Column: Real Brochure Photograph & Highlight Box */}
                 <div className="lg:col-span-5 flex flex-col items-center">
-                  <div className="group relative w-full overflow-hidden rounded-3xl border-4 border-white shadow-2xl shadow-navy-950/15">
+                  <div className="group relative w-full overflow-hidden rounded-3xl border-4 border-white shadow-2xl shadow-navy-950/15 transition-all duration-500 hover:shadow-navy-950/25">
                     <img
+                      key={currentArea.image}
                       src={currentArea.image}
                       alt={currentArea.title}
-                      className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105 animate-fade"
                     />
                     {/* Subtle overlay sweep */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-90" />
                     
-                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/30 bg-white/90 p-4 backdrop-blur-md">
+                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/30 bg-white/90 p-4 backdrop-blur-md transition-all duration-300 group-hover:bg-white/95">
                       {/* <span className="text-[11px] font-bold uppercase tracking-wider text-leaf-dark">
                         Brochure Focus Area {currentArea.num}
                       </span> */}
@@ -701,7 +702,7 @@ export default function Initiatives() {
                   </div>
 
                   {/* Quick Impact Metrics Card */}
-                  <div className="mt-5 w-full rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-pale/60 to-white p-5">
+                  <div className="mt-5 w-full rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-pale/60 to-white p-5 transition-all duration-300 hover:shadow-md hover:border-brand/20">
                     <h5 className="text-xs font-bold uppercase tracking-wider text-navy-900">
                       Community Outreach
                     </h5>
@@ -725,7 +726,7 @@ export default function Initiatives() {
           onClick={() => setReadMoreArea(null)}
         >
           <div
-            className="relative my-auto max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl sm:p-8"
+            className="relative my-auto max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl animate-scale-up sm:p-8"
             role="dialog"
             aria-modal="true"
             onClick={(e) => e.stopPropagation()}

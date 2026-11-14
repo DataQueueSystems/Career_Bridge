@@ -14,13 +14,28 @@ export default {
         sans: ['Heebo', 'system-ui', 'sans-serif'],
       },
       keyframes: {
-        fade: { from: { opacity: '0' }, to: { opacity: '1' } },
+        fade: {
+          from: { opacity: '0', transform: 'translateY(6px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
         floaty: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-12px)' } },
         rise: { from: { opacity: '0', transform: 'translateY(26px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
         spin360: { to: { transform: 'rotate(360deg)' } },
         draw: { from: { strokeDashoffset: '260' }, to: { strokeDashoffset: '0' } },
         dash: { to: { strokeDashoffset: '-48' } },
         pulseRing: { '0%': { transform: 'scale(1)', opacity: '.5' }, '100%': { transform: 'scale(1.6)', opacity: '0' } },
+        tabPane: {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideDown: {
+          from: { opacity: '0', transform: 'translateY(-16px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        scaleUp: {
+          from: { opacity: '0', transform: 'scale(0.96)' },
+          to: { opacity: '1', transform: 'scale(1)' },
+        },
       },
       animation: {
         fade: 'fade .5s ease-out both',
@@ -30,6 +45,9 @@ export default {
         draw: 'draw 1.2s .8s ease-out both',
         dash: 'dash 3s linear infinite',
         ring: 'pulseRing 2.2s ease-out infinite',
+        'tab-pane': 'tabPane 0.4s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'slide-down': 'slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'scale-up': 'scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both',
       },
     },
   },

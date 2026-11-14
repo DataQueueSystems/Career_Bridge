@@ -9,7 +9,7 @@ const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxJiOepWBNRtU5Lqp-uKD
 
 const field = 'mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 font-normal text-slate-800 outline-none transition duration-200 placeholder:text-slate-400 focus:border-brand focus:ring-4 focus:ring-brand/15';
 
-export default function Contact() {
+export default function Contact({ intro }) {
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const [responseMessage, setResponseMessage] = useState('');
   const formRef = useRef(null);
@@ -75,6 +75,16 @@ export default function Contact() {
   return (
     <section id="contact" className="bg-gradient-to-br from-brand-pale via-white to-leaf-soft/50 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        {intro && (
+          <Reveal>
+            <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
+              <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
+                {intro}
+              </p>
+            </div>
+          </Reveal>
+        )}
 
         <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12">
           <Reveal>

@@ -10,10 +10,10 @@ export default function ContactPage() {
         title="Contact Us"
         // badge="Connect with CareerBridge Foundation"
         bgImage={HERO_BG}
-      >
-        Connecting youth. Building skills. Creating opportunities. Have questions about our programs, recruitment partnerships, or community drives? Reach out to us.
-      </PageHeader>
-      <Contact />
+        imagePos="object-top sm:object-[center_25%]"
+        minHeight="min-h-[70vh]"
+      />
+      <Contact intro="Connecting youth. Building skills. Creating opportunities. Have questions about our programs, recruitment partnerships, or community drives? Reach out to us." />
     </>
   );
 }
