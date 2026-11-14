@@ -235,7 +235,7 @@ export default function SkillDevelopmentForm({ onSuccess }) {
       <div className="mb-6 flex items-center justify-between border-b border-slate-100 pb-4">
         <div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-leaf-soft px-3 py-1 text-xs font-bold text-leaf-dark">
-            <Sparkles size={14} /> Training & Upskilling
+             Training & Upskilling
           </span>
           <h2 className="mt-2 text-2xl font-bold text-navy-900">Skill Development Application</h2>
           <p className="text-sm text-slate-500">Apply for internships, technical skill workshops, and career enhancement programmes.</p>
