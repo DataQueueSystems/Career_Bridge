@@ -83,10 +83,10 @@ export default function ApplyPage({ initialTab }) {
         </Reveal>
 
         {/* Content Layout */}
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-10">
+        <div className="mt-10 grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-10 w-full min-w-0">
           
           {/* Main Form Area */}
-          <Reveal delay={150}>
+          <Reveal delay={150} className="w-full min-w-0">
             {activeTab === 'job' ? (
               <JobApplicationForm />
             ) : (
@@ -95,7 +95,7 @@ export default function ApplyPage({ initialTab }) {
           </Reveal>
 
           {/* Sidebar Info & Trust Badges */}
-          <Reveal delay={250}>
+          <Reveal delay={250} className="w-full min-w-0">
             <div className="space-y-6">
               
               {/* Highlight Card */}

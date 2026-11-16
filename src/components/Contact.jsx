@@ -73,8 +73,8 @@ export default function Contact({ intro }) {
   ].filter(Boolean);
 
   return (
-    <section id="contact" className="bg-gradient-to-br from-brand-pale via-white to-leaf-soft/50 py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="relative overflow-hidden w-full max-w-full bg-gradient-to-br from-brand-pale via-white to-leaf-soft/50 py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full max-w-full">
 
         {intro && (
           <Reveal>
@@ -86,18 +86,18 @@ export default function Contact({ intro }) {
           </Reveal>
         )}
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12">
-          <Reveal>
-            <ul className="space-y-4">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr] lg:gap-12 w-full min-w-0">
+          <Reveal className="w-full min-w-0">
+            <ul className="space-y-4 w-full">
               {info.map(({ icon: Icon, label, value, href }) => (
-                <li key={label} className="flex items-start gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <li key={label} className="flex items-start gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-lg w-full min-w-0">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-navy-800 text-white">
                     <Icon size={22} />
                   </span>
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold text-slate-500">{label}</p>
                     {href ? (
-                      <a href={href} className="break-words font-semibold text-navy-800 hover:text-brand">{value}</a>
+                      <a href={href} className="break-all font-semibold text-navy-800 hover:text-brand sm:break-words">{value}</a>
                     ) : (
                       <p className="font-semibold text-navy-800">{value}</p>
                     )}
@@ -107,19 +107,19 @@ export default function Contact({ intro }) {
             </ul>
           </Reveal>
 
-          <Reveal delay={150}>
+          <Reveal delay={150} className="w-full min-w-0">
             <form
               ref={formRef}
               onSubmit={onSubmit}
               action={SHEET_URL}
               method="POST"
               target="skillbridge-contact-response"
-              className="space-y-5 rounded-3xl border-t-4 border-leaf bg-white p-6 shadow-xl shadow-navy-900/10 ring-1 ring-slate-200/70 sm:p-9"
+              className="space-y-5 rounded-3xl border-t-4 border-leaf bg-white p-5 sm:p-9 shadow-xl shadow-navy-900/10 ring-1 ring-slate-200/70 w-full max-w-full box-border"
             >
               <input ref={submissionIdInputRef} type="hidden" name="submissionId" />
               <input type="hidden" name="formType" value="contact" />
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block text-sm font-semibold text-navy-800">Full name
+              <div className="grid gap-5 sm:grid-cols-2 w-full min-w-0">
+                <label className="block text-sm font-semibold text-navy-800 w-full min-w-0">Full name
                  <input
   name="name"
   required
@@ -131,7 +131,7 @@ export default function Contact({ intro }) {
   placeholder="Your name"
 />
                 </label>
-                <label className="block text-sm font-semibold text-navy-800">Email
+                <label className="block text-sm font-semibold text-navy-800 w-full min-w-0">Email
                   <input
                     name="email"
                     type="email"
@@ -141,7 +141,7 @@ export default function Contact({ intro }) {
                     placeholder="you@example.com"
                   />
                 </label>
-                <label className="block text-sm font-semibold text-navy-800">Phone
+                <label className="block text-sm font-semibold text-navy-800 w-full min-w-0">Phone
                   <input
                     name="phone"
                     type="tel"
@@ -162,13 +162,13 @@ export default function Contact({ intro }) {
                     placeholder="+91"
                   />
                 </label>
-                <label className="block text-sm font-semibold text-navy-800">I am a
+                <label className="block text-sm font-semibold text-navy-800 w-full min-w-0">I am a
                   <select name="role" required className={field} defaultValue="Student">
                     <option>Student</option><option>Job seeker</option><option>Educational institution</option><option>Company</option><option>Other</option>
                   </select>
                 </label>
               </div>
-              <label className="block text-sm font-semibold text-navy-800">Message
+              <label className="block text-sm font-semibold text-navy-800 w-full min-w-0">Message
                 <textarea
                   name="message"
                   required

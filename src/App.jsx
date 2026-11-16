@@ -18,7 +18,7 @@ function Layout() {
     <>
       <ScrollToTop />
       <Navbar />
-      <main key={pathname} className="animate-fade">
+      <main key={pathname} className="animate-fade w-full max-w-full overflow-x-clip">
         <Outlet />
       </main>
       <Footer />

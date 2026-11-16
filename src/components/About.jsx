@@ -210,11 +210,11 @@ export default function About({ hideHeader = false, intro }) {
             <span className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-brand to-leaf" />
           </Reveal>
         )}
-        <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-12">
-          <Reveal>
+        <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-12 w-full max-w-full">
+          <Reveal className="w-full">
             <div className="relative mx-auto w-full max-w-md lg:sticky lg:top-28">
-              {/* soft offset shape behind the card */}
-              <div className="absolute -inset-3 -rotate-2 rounded-[2.25rem] bg-gradient-to-br from-brand/10 to-leaf/20" />
+              {/* soft offset shape behind the card - constrained on mobile to prevent horizontal overflow */}
+              <div className="absolute inset-0 sm:-inset-3 sm:-rotate-2 rounded-[1.75rem] sm:rounded-[2.25rem] bg-gradient-to-br from-brand/10 to-leaf/20" />
 
               <div className="relative rounded-[1.75rem] border border-white/70 bg-gradient-to-br from-brand-soft to-leaf-soft p-4 shadow-xl shadow-navy-900/10 transition duration-500 hover:shadow-2xl sm:rounded-[2rem] sm:p-8">
                 <p className="mb-3 text-center font-display text-xl font-bold text-navy-900 sm:mb-4 sm:text-2xl">“Opportunity begins with access.”</p>
@@ -243,7 +243,7 @@ export default function About({ hideHeader = false, intro }) {
           </Reveal>
 
           {/* timeline-style paragraphs */}
-          <div className="relative space-y-4 text-base leading-relaxed sm:space-y-5">
+          <div className="relative space-y-4 text-base leading-relaxed sm:space-y-5 w-full max-w-full">
             {[
               { title: 'About CareerBridge', content: <><B>CareerBridge is a social-impact initiative of DQS</B>, an IT company engaged in IT services and software development, with client projects across India, the UAE, and the UK. Established as a dedicated division under DQS’s Social Impact Project (SIP), CareerBridge undertakes community development with a commitment to youth empowerment and social well-being.</> },
               { title: 'What we do', content: <>Our work brings together <B>skill development, employability, career development, scholarships, career guidance, youth counselling, and well-being support</B>. We help young people enhance their abilities, explore career opportunities, and prepare for a successful professional future.</> },
@@ -252,8 +252,8 @@ export default function About({ hideHeader = false, intro }) {
             ].map((para, i) => {
               const { icon: Icon, tone } = BADGES[i];
               return (
-                <Reveal key={para.title} delay={i * 100}>
-                  <article className="group relative flex gap-3 rounded-2xl border border-slate-200/80 bg-white/80 p-4 shadow-sm transition duration-500 hover:-translate-y-1 hover:border-brand/20 hover:bg-white hover:shadow-lg hover:shadow-navy-900/5 sm:gap-4 sm:border-transparent sm:bg-transparent sm:p-2 sm:shadow-none sm:hover:bg-white/60">
+                <Reveal key={para.title} delay={i * 100} className="w-full">
+                  <article className="group relative flex w-full gap-3 rounded-2xl border border-slate-200/80 bg-white/80 p-4 shadow-sm transition duration-500 hover:-translate-y-1 hover:border-brand/20 hover:bg-white hover:shadow-lg hover:shadow-navy-900/5 sm:gap-4 sm:border-transparent sm:bg-transparent sm:p-2 sm:shadow-none sm:hover:bg-white/60">
                     <span className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${tone} shadow-sm ring-4 ring-white transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 sm:h-11 sm:w-11`}>
                       <Icon size={20} />
                     </span>

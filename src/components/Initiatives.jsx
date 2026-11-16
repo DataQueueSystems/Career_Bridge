@@ -345,7 +345,7 @@ export default function Initiatives() {
         {/* MOBILE VIEW ONLY (block on mobile/tablet, hidden on lg+):      */}
         {/* Stacked Cards with Interactive Swipe & Intro Slide Animation   */}
         {/* ============================================================== */}
-        <div className="block lg:hidden mt-8">
+        <div className="block lg:hidden mt-8 overflow-hidden">
           <Reveal>
             <div className="text-center mb-5">
               <span className="rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-brand">
