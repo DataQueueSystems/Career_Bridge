@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Briefcase, GraduationCap, Sparkles } from 'lucide-react';
+import { Menu, X, ChevronDown, Briefcase, GraduationCap} from 'lucide-react';
 import logo from '../assets/careerbridge-foundation-logo.png';
 import { NAV } from '../data/content.js';
 

@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://careerbridgefoundation.org/sitemap.xml
+Sitemap: https://careerbridgefoundation.in/sitemap.xml

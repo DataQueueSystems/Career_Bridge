@@ -11,7 +11,7 @@ export default function ContactPage() {
         // badge="Connect with CareerBridge Foundation"
         bgImage={HERO_BG}
         imagePos="object-top sm:object-[center_25%]"
-        minHeight="min-h-[70vh]"
+        minHeight="min-h-[40vh] sm:min-h-[55vh] lg:min-h-[70vh]"
       />
       <Contact intro="Connecting youth. Building skills. Creating opportunities. Have questions about our programs, recruitment partnerships, or community drives? Reach out to us." />
     </>

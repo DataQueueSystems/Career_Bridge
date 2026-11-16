@@ -12,7 +12,7 @@ export default function PortfolioPage() {
         // badge="Our Impact at a Glance"
         bgImage={HERO_BG}
         imagePos="object-cover object-[center_35%]"
-        minHeight="min-h-[70vh]"
+        minHeight="min-h-[40vh] sm:min-h-[55vh] lg:min-h-[70vh]"
       >
         {/* Building opportunities. Creating possibilities. Reaching over 200+ educational institutions and facilitating 8,000+ candidate-interview connections. */}
       </PageHeader>

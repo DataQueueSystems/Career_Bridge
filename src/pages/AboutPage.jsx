@@ -14,7 +14,7 @@ export default function AboutPage() {
         // badge="Social Impact Project (SIP) · DQS"
         bgImage={HERO_BG}
         imagePos="object-cover object-center"
-        minHeight="min-h-[70vh]"
+        minHeight="min-h-[40vh] sm:min-h-[55vh] lg:min-h-[70vh]"
       />
       <About
         hideHeader={true}

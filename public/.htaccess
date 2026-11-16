@@ -3,12 +3,17 @@
 # Single Page Application (SPA) Routing, HTTPS, Compression, Cache & SEO
 # ------------------------------------------------------------------------------
 
-# 1. Enable Rewrite Engine for SPA Clean Routing
+# 1. Enable Rewrite Engine for SPA Clean Routing & HTTPS
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # 1.1 SPA Fallback: Route all subpages (/about, /initiatives, /portfolio, /contact, /apply) to index.html
+  # 1.1 Force HTTPS Redirect (http://careerbridgefoundation.in -> https://careerbridgefoundation.in)
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 1.2 SPA Fallback: Route all subpages (/about, /initiatives, /portfolio, /contact, /apply) to index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]
