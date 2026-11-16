@@ -178,12 +178,12 @@ export default function About({ hideHeader = false, intro }) {
   const isAboutPage = hideHeader || pathname.startsWith('/about');
 
   return (
-    <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-white to-brand-pale/60 py-16 sm:py-24">
+    <section id="about" className="relative isolate overflow-hidden bg-gradient-to-b from-white via-white to-brand-pale/60 py-16 sm:py-24">
       <style>{ABOUT_CSS}</style>
 
-      {/* decorative background */}
-      <div className="pointer-events-none absolute -left-28 top-10 h-80 w-80 rounded-full bg-brand-light/15 blur-3xl" />
-      <div className="pointer-events-none absolute -right-28 bottom-0 h-96 w-96 rounded-full bg-leaf/15 blur-3xl" />
+      {/* decorative background - hidden on mobile to avoid overflow or blur bleed */}
+      <div className="pointer-events-none absolute -left-28 top-10 h-80 w-80 rounded-full bg-brand-light/15 blur-3xl hidden sm:block" />
+      <div className="pointer-events-none absolute -right-28 bottom-0 h-96 w-96 rounded-full bg-leaf/15 blur-3xl hidden sm:block" />
       <DotGrid className="right-6 top-8 hidden sm:block" />
       <DotGrid className="bottom-8 left-6 hidden lg:block" />
       <svg className="ab-spin pointer-events-none absolute -right-16 top-1/3 hidden h-56 w-56 text-brand/15 lg:block" viewBox="0 0 100 100" fill="none" aria-hidden="true">
@@ -210,7 +210,7 @@ export default function About({ hideHeader = false, intro }) {
             <span className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-brand to-leaf" />
           </Reveal>
         )}
-        <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-12 w-full max-w-full">
+        <div className="grid grid-cols-1 items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-12 w-full max-w-full">
           <Reveal className="w-full">
             <div className="relative mx-auto w-full max-w-md lg:sticky lg:top-28">
               {/* soft offset shape behind the card - constrained on mobile to prevent horizontal overflow */}
@@ -243,7 +243,7 @@ export default function About({ hideHeader = false, intro }) {
           </Reveal>
 
           {/* timeline-style paragraphs */}
-          <div className="relative space-y-4 text-base leading-relaxed sm:space-y-5 w-full max-w-full">
+          <div className="relative space-y-4 text-base leading-relaxed sm:space-y-5 w-full max-w-md mx-auto lg:max-w-none">
             {[
               { title: 'About CareerBridge', content: <><B>CareerBridge is a social-impact initiative of DQS</B>, an IT company engaged in IT services and software development, with client projects across India, the UAE, and the UK. Established as a dedicated division under DQS’s Social Impact Project (SIP), CareerBridge undertakes community development with a commitment to youth empowerment and social well-being.</> },
               { title: 'What we do', content: <>Our work brings together <B>skill development, employability, career development, scholarships, career guidance, youth counselling, and well-being support</B>. We help young people enhance their abilities, explore career opportunities, and prepare for a successful professional future.</> },
