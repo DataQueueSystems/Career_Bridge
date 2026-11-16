@@ -34,40 +34,65 @@ export default function Portfolio() {
     const el = ref.current;
     if (!el) return;
 
-    // start on the middle copy so you can scroll both directions
-    el.scrollLeft = el.scrollWidth / 3;
+    // Initialize scroll position once content has laid out
+    const initScroll = () => {
+      const copy = el.scrollWidth / 3;
+      if (copy > 0) {
+        el.scrollLeft = copy;
+        pos = copy;
+      }
+    };
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const SPEED = 40; // px per second
-    let pos = el.scrollLeft;
+    const SPEED = 45; // px per second
+    let pos = el.scrollLeft || 0;
     let last = performance.now();
     let raf;
 
+    initScroll();
+    // Re-check after layout calculation
+    const initTimer = setTimeout(initScroll, 50);
+
     const wrap = () => {
       const copy = el.scrollWidth / 3;
-      if (el.scrollLeft >= copy * 2) el.scrollLeft -= copy;
-      else if (el.scrollLeft <= 0) el.scrollLeft += copy;
+      if (!copy || copy < 50) return;
+      if (el.scrollLeft >= copy * 2) {
+        el.scrollLeft -= copy;
+        pos -= copy;
+      } else if (el.scrollLeft <= 2) {
+        el.scrollLeft += copy;
+        pos += copy;
+      }
     };
 
     const tick = (now) => {
-      const dt = (now - last) / 1000;
+      const dt = Math.min((now - last) / 1000, 0.1);
       last = now;
-      if (paused.current || drag.current.active || reduce) {
-        pos = el.scrollLeft; // follow the user's manual movement
+
+      if (paused.current || drag.current.active) {
+        pos = el.scrollLeft;
       } else {
         pos += SPEED * dt;
-        el.scrollLeft = pos;
+        el.scrollLeft = Math.round(pos);
+        wrap();
       }
-      wrap();
-      pos = el.scrollLeft;
+
       raf = requestAnimationFrame(tick);
     };
+
     raf = requestAnimationFrame(tick);
 
-    el.addEventListener('scroll', wrap, { passive: true });
+    const onScroll = () => {
+      wrap();
+      if (paused.current || drag.current.active) {
+        pos = el.scrollLeft;
+      }
+    };
+
+    el.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
-      el.removeEventListener('scroll', wrap);
+      clearTimeout(initTimer);
+      el.removeEventListener('scroll', onScroll);
       clearTimeout(timer.current);
     };
   }, []);
@@ -155,7 +180,7 @@ export default function Portfolio() {
       className="cursor-grab select-none overflow-x-auto pb-14 pt-12 active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
       style={{
         scrollbarWidth: 'none',
-        WebkitOverflowScrolling: 'touch',
+        WebkitOverflowScrolling: 'auto',
         WebkitMaskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)',
         maskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)',
       }}
