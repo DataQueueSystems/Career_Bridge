@@ -297,8 +297,8 @@ export default function Home1() {
         })}
       </div>
 
-      {/* Mobile dot pagination - rendered once outside slides */}
-      <div className="mt-3 flex w-full items-center justify-center gap-1 sm:hidden" role="group" aria-label="Choose a highlight">
+      {/* Dot pagination — visible on mobile & tablet (lg+ uses arrow buttons) */}
+      <div className="flex w-full items-center justify-center gap-2 pb-4 pt-2 lg:hidden" role="group" aria-label="Choose a highlight">
         {SLIDES.map((slide, slideIndex) => (
           <button
             key={slide.step}
@@ -306,12 +306,35 @@ export default function Home1() {
             onClick={() => go(slideIndex)}
             aria-label={`Show ${slide.step}`}
             aria-current={slideIndex === index ? 'true' : undefined}
-            className="flex h-9 w-8 items-center justify-center"
+            className="group flex flex-col items-center gap-1 px-1 py-1"
           >
-            <span className={`h-2 rounded-full transition-all ${slideIndex === index ? 'w-5 bg-brand' : 'w-2 bg-navy-800/30'}`} />
+            {/* dot */}
+            <span
+              className={`block h-2.5 rounded-full transition-all duration-500 ${
+                slideIndex === index
+                  ? 'w-7 bg-brand shadow-sm shadow-brand/40'
+                  : 'w-2.5 bg-navy-900/20 group-hover:bg-brand/40'
+              }`}
+            />
+            {/* progress bar under active dot */}
+            {slideIndex === index && (
+              <span className="h-0.5 w-7 overflow-hidden rounded-full bg-brand/20">
+                <span
+                  key={`prog-${index}`}
+                  className="block h-full rounded-full bg-brand"
+                  style={{ animation: `heroProgress ${DELAY}ms linear forwards` }}
+                />
+              </span>
+            )}
           </button>
         ))}
       </div>
+      <style>{`
+        @keyframes heroProgress {
+          from { width: 0%; }
+          to   { width: 100%; }
+        }
+      `}</style>
 
       {/* < > arrows, centred on the left and right edges */}
       <button onClick={() => go(index - 1)} aria-label="Previous slide" className={`${arrow} hidden left-2 sm:flex sm:left-5`}>

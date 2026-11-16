@@ -126,9 +126,9 @@ export default function ApplyPage({ initialTab }) {
 
               {/* Assistance & Helpline */}
               <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h4 className="font-bold text-navy-900">Need Assistance with Applying?</h4>
+                <h4 className="font-bold text-navy-900">Share Your Resume</h4>
                 <p className="mt-1 text-sm text-slate-500">
-                  Feel free to get in touch with our admissions and placement helpdesk.
+                  Send your resume directly via WhatsApp or email to the details below.
                 </p>
                 <div className="mt-5 space-y-3 text-sm">
                   <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export default function ApplyPage({ initialTab }) {
                       <Phone size={18} />
                     </span>
                     <div>
-                      <p className="text-xs text-slate-400">Helpline / WhatsApp</p>
+                      <p className="text-xs text-slate-400">WhatsApp Resume</p>
                       <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="font-semibold text-navy-800 hover:text-leaf">
                         {CONTACT.phone}
                       </a>
@@ -148,7 +148,7 @@ export default function ApplyPage({ initialTab }) {
                       <Mail size={18} />
                     </span>
                     <div>
-                      <p className="text-xs text-slate-400">Email Enquiries</p>
+                      <p className="text-xs text-slate-400">Email Resume To</p>
                       <a href={`mailto:${CONTACT.email}`} className="break-all font-semibold text-navy-800 hover:text-brand">
                         {CONTACT.email}
                       </a>

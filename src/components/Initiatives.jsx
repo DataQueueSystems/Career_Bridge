@@ -183,6 +183,7 @@ export default function Initiatives() {
   const [activeTab, setActiveTab] = useState(0);
   const [expandedCard, setExpandedCard] = useState(null); // stores { areaIndex, progIndex }
   const [readMoreArea, setReadMoreArea] = useState(null); // stores areaIndex for modal / detail view
+  const [modalSlide, setModalSlide] = useState(0); // active programme slide inside modal (mobile slider)
 
   // Mobile stacked card swipe states
   const [mobileIndex, setMobileIndex] = useState(0);
@@ -204,6 +205,7 @@ export default function Initiatives() {
   // Lock background scroll and hide navbar when modal is open
   useEffect(() => {
     if (readMoreArea !== null) {
+      setModalSlide(0);
       document.body.style.overflow = 'hidden';
       document.body.classList.add('modal-open');
       const handleKeyDown = (e) => {
@@ -754,8 +756,76 @@ export default function Initiatives() {
               </button>
             </div>
 
-            {/* Modal Body: All Detailed Programmes from Brochure */}
-            <div className="mt-6 space-y-4">
+            {/* Modal Body: horizontal slider on mobile, vertical list on sm+ */}
+
+            {/* ── MOBILE SLIDER (hidden on sm+) ── */}
+            <div className="mt-6 sm:hidden">
+              {/* Slide card */}
+              <div className="relative overflow-hidden">
+                {FOCUS_AREAS_DATA[readMoreArea].programmes.map((p, pIdx) => (
+                  <div
+                    key={p.num}
+                    className={`transition-all duration-400 ${pIdx === modalSlide ? 'block' : 'hidden'}`}
+                  >
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <div className="flex items-center gap-2.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-leaf text-xs font-bold text-white">
+                          {p.num}
+                        </span>
+                        <h4 className="font-bold text-navy-900">{p.title}</h4>
+                      </div>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700">{p.detail}</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {p.highlights.map((h, i) => (
+                          <span key={i} className="inline-flex items-center gap-1 rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 border border-slate-200/70">
+                            <CheckCircle2 size={12} className="text-leaf" /> {h}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Dot + arrow nav */}
+              <div className="mt-4 flex items-center justify-between px-1">
+                <button
+                  type="button"
+                  onClick={() => setModalSlide((s) => (s - 1 + FOCUS_AREAS_DATA[readMoreArea].programmes.length) % FOCUS_AREAS_DATA[readMoreArea].programmes.length)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-800 shadow-sm transition active:scale-90"
+                  aria-label="Previous programme"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {FOCUS_AREAS_DATA[readMoreArea].programmes.map((_, dIdx) => (
+                    <button
+                      key={dIdx}
+                      type="button"
+                      onClick={() => setModalSlide(dIdx)}
+                      aria-label={`Go to programme ${dIdx + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 ${dIdx === modalSlide ? 'w-6 bg-leaf' : 'w-2 bg-slate-300'}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setModalSlide((s) => (s + 1) % FOCUS_AREAS_DATA[readMoreArea].programmes.length)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-800 shadow-sm transition active:scale-90"
+                  aria-label="Next programme"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+              <p className="mt-1 text-center text-xs text-slate-400">
+                {modalSlide + 1} / {FOCUS_AREAS_DATA[readMoreArea].programmes.length}
+              </p>
+            </div>
+
+            {/* ── DESKTOP VERTICAL LIST (hidden on mobile) ── */}
+            <div className="mt-6 hidden sm:block space-y-4">
               {FOCUS_AREAS_DATA[readMoreArea].programmes.map((p) => (
                 <div key={p.num} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
                   <div className="flex items-center gap-2.5">
@@ -764,9 +834,7 @@ export default function Initiatives() {
                     </span>
                     <h4 className="font-bold text-navy-900 sm:text-base">{p.title}</h4>
                   </div>
-                  <p className="mt-2.5 text-sm leading-relaxed text-slate-700">
-                    {p.detail}
-                  </p>
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-700">{p.detail}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {p.highlights.map((h, i) => (
                       <span key={i} className="inline-flex items-center gap-1 rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 border border-slate-200/70">
