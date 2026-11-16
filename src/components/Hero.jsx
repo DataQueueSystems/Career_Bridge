@@ -184,12 +184,33 @@ export default function Home1() {
     return () => clearTimeout(t);
   }, [index, paused]);
 
-  const onTouchStart = (e) => { touchX.current = e.touches[0].clientX; };
+  const onMouseEnter = () => {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      setPaused(true);
+    }
+  };
+
+  const onMouseLeave = () => {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      setPaused(false);
+    }
+  };
+
+  const onTouchStart = (e) => {
+    touchX.current = e.touches[0].clientX;
+  };
+
   const onTouchEnd = (e) => {
+    setPaused(false);
     if (touchX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchX.current;
-    if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 35) go(index + (dx < 0 ? 1 : -1));
     touchX.current = null;
+  };
+
+  const onTouchCancel = () => {
+    touchX.current = null;
+    setPaused(false);
   };
 
   const slideClass = (i) =>
@@ -207,12 +228,12 @@ export default function Home1() {
       id="home"
       aria-roledescription="carousel"
       aria-label="CareerBridge Foundation highlights"
-      // className={`relative isolate flex flex-col justify-center overflow-hidden bg-gradient-to-b from-brand-pale to-brand-soft pb-52 pt-[5.25rem] sm:pb-56 ${HERO_HEIGHT}`}
-    className={`relative isolate flex flex-col justify-center overflow-hidden bg-gradient-to-br from-brand-pale via-brand-soft to-leaf-soft/60 pb-10 pt-[5.25rem] sm:pb-24 ${HERO_HEIGHT}`}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      className={`relative isolate flex flex-col justify-center overflow-hidden bg-gradient-to-br from-brand-pale via-brand-soft to-leaf-soft/60 pb-10 pt-[5.25rem] sm:pb-24 ${HERO_HEIGHT}`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchCancel}
     >
       {/* background image slider: crossfades in sync with the slides
       <div className="absolute inset-0 -z-20 overflow-hidden" aria-hidden="true"> */}{/* background image slider: crossfades in sync with the slides */}

@@ -72,9 +72,17 @@ export default function Portfolio() {
     };
   }, []);
 
-  /* hover (desktop) */
-  const onEnter = () => { paused.current = true; };
-  const onLeave = () => { paused.current = false; };
+  /* hover (desktop only - do not trigger on iOS touch) */
+  const onEnter = () => {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      paused.current = true;
+    }
+  };
+  const onLeave = () => {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      paused.current = false;
+    }
+  };
 
   /* touch (mobile): native swipe, pause while touching, resume after a moment */
   const onTouchStart = () => {
@@ -83,7 +91,11 @@ export default function Portfolio() {
   };
   const onTouchEnd = () => {
     clearTimeout(timer.current);
-    timer.current = setTimeout(() => { paused.current = false; }, 2500);
+    timer.current = setTimeout(() => { paused.current = false; }, 2000);
+  };
+  const onTouchCancel = () => {
+    clearTimeout(timer.current);
+    paused.current = false;
   };
 
   /* mouse drag (desktop) */
@@ -135,6 +147,7 @@ export default function Portfolio() {
       onMouseLeave={onLeave}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchCancel}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

@@ -191,6 +191,7 @@ export default function Initiatives() {
   const [isSwiping, setIsSwiping] = useState(false);
   const [hasSwiped, setHasSwiped] = useState(false);
   const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
+  const modalTouchX = useRef(null);
 
   const currentArea = FOCUS_AREAS_DATA[activeTab];
 
@@ -272,6 +273,29 @@ export default function Initiatives() {
     } else {
       setDragOffset(0);
     }
+  };
+
+  const handleTouchCancel = () => {
+    setIsSwiping(false);
+    setDragOffset(0);
+  };
+
+  const onModalTouchStart = (e) => {
+    modalTouchX.current = e.touches[0].clientX;
+  };
+
+  const onModalTouchEnd = (e) => {
+    if (modalTouchX.current === null || readMoreArea === null) return;
+    const dx = e.changedTouches[0].clientX - modalTouchX.current;
+    if (Math.abs(dx) > 35) {
+      const len = FOCUS_AREAS_DATA[readMoreArea].programmes.length;
+      if (dx < 0) {
+        setModalSlide((s) => (s + 1) % len);
+      } else {
+        setModalSlide((s) => (s - 1 + len) % len);
+      }
+    }
+    modalTouchX.current = null;
   };
 
   // Mouse Drag handlers (convenience for desktop responsive testers)
@@ -372,9 +396,14 @@ export default function Initiatives() {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchCancel}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
+            style={{
+              perspective: '1000px',
+              WebkitPerspective: '1000px',
+            }}
           >
             {FOCUS_AREAS_DATA.map((area, idx) => {
               const diff = (idx - mobileIndex + FOCUS_AREAS_DATA.length) % FOCUS_AREAS_DATA.length;
@@ -392,22 +421,22 @@ export default function Initiatives() {
                 opacityStyle = 1;
                 pointerEventsStyle = 'auto';
                 if (isSwiping && dragOffset !== 0) {
-                  transformStyle = `translateX(${dragOffset}px) rotate(${dragOffset * 0.04}deg)`;
+                  transformStyle = `translateX(${dragOffset}px) translateY(0) translateZ(30px) rotate(${dragOffset * 0.04}deg)`;
                 } else {
-                  transformStyle = 'translateX(0) translateY(0) scale(1) rotate(0deg)';
+                  transformStyle = 'translateX(0) translateY(0) translateZ(30px) rotate(0deg)';
                 }
               } else if (isSecond) {
                 zIndex = 20;
                 opacityStyle = 0.88;
-                transformStyle = 'translateY(12px) scale(0.95)';
+                transformStyle = 'translateY(12px) translateZ(20px) scale(0.95)';
               } else if (isThird) {
                 zIndex = 10;
                 opacityStyle = 0.65;
-                transformStyle = 'translateY(24px) scale(0.90)';
+                transformStyle = 'translateY(24px) translateZ(10px) scale(0.90)';
               } else {
                 zIndex = 0;
                 opacityStyle = 0;
-                transformStyle = 'translateY(36px) scale(0.85)';
+                transformStyle = 'translateY(36px) translateZ(0px) scale(0.85)';
               }
 
               const isIntroSlide = isTop && mobileIndex === 0 && !hasSwiped && !isSwiping;
@@ -422,6 +451,9 @@ export default function Initiatives() {
                     zIndex,
                     opacity: opacityStyle,
                     transform: transformStyle,
+                    WebkitTransform: transformStyle,
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden',
                     pointerEvents: pointerEventsStyle,
                   }}
                 >
@@ -761,7 +793,11 @@ export default function Initiatives() {
             {/* ── MOBILE SLIDER (hidden on sm+) ── */}
             <div className="mt-6 sm:hidden">
               {/* Slide card */}
-              <div className="relative overflow-hidden">
+              <div
+                className="relative overflow-hidden touch-pan-y"
+                onTouchStart={onModalTouchStart}
+                onTouchEnd={onModalTouchEnd}
+              >
                 {FOCUS_AREAS_DATA[readMoreArea].programmes.map((p, pIdx) => (
                   <div
                     key={p.num}

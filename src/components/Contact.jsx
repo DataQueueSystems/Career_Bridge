@@ -145,21 +145,33 @@ export default function Contact({ intro }) {
                   <input
                     name="phone"
                     type="tel"
+                    inputMode="numeric"
                     required
-
-                    pattern="\+?[0-9\s().-]{7,20}"
-                    title="Enter 7–15 digits; spaces, +, parentheses, periods, and hyphens are allowed."
+                    maxLength={10}
+                    minLength={10}
+                    pattern="^[6-9][0-9]{9}$"
+                    title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9 (e.g. 9876543210)."
+                    placeholder="e.g. 9876543210"
                     onInput={(event) => {
                       const phone = event.currentTarget;
-                      const digitCount = phone.value.replace(/\D/g, '').length;
-                      phone.setCustomValidity(
-                        phone.value && (digitCount < 10 || digitCount > 10)
-                          ? 'Enter a phone number containing 7–15 digits.'
-                          : ''
-                      );
+                      let digits = phone.value.replace(/\D/g, '');
+                      if (digits.length > 10 && digits.startsWith('91')) {
+                        digits = digits.slice(2);
+                      } else if (digits.length > 10 && digits.startsWith('0')) {
+                        digits = digits.slice(1);
+                      }
+                      digits = digits.slice(0, 10);
+                      phone.value = digits;
+
+                      if (digits.length > 0 && !/^[6-9]/.test(digits)) {
+                        phone.setCustomValidity('Indian mobile numbers must start with 6, 7, 8, or 9.');
+                      } else if (digits.length > 0 && digits.length < 10) {
+                        phone.setCustomValidity('Please enter a valid 10-digit mobile number.');
+                      } else {
+                        phone.setCustomValidity('');
+                      }
                     }}
                     className={field}
-                    placeholder="+91"
                   />
                 </label>
                 <label className="block text-sm font-semibold text-navy-800 w-full min-w-0">I am a
