@@ -22,6 +22,10 @@ export default function ApplyPage({ initialTab }) {
     return 'job';
   });
 
+  const [hoveredTab, setHoveredTab] = useState(null);
+  const isJobExpanded = activeTab === 'job' || hoveredTab === 'job';
+  const isSkillExpanded = activeTab === 'skill' || hoveredTab === 'skill';
+
   useEffect(() => {
     if (location.pathname.includes('scholarship')) {
       setActiveTab('scholarship');
@@ -59,42 +63,53 @@ export default function ApplyPage({ initialTab }) {
         {/* Tab Switcher */}
         <Reveal>
           <div className="flex justify-center">
-            <div className="inline-flex flex-wrap justify-center gap-1.5 rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200">
+            <div className="inline-flex flex-nowrap justify-center gap-1 sm:gap-2 rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200 w-full sm:w-auto max-w-full overflow-x-auto">
               <button
                 type="button"
                 onClick={() => switchTab('job')}
-                className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-300 ${
+                onMouseEnter={() => setHoveredTab('job')}
+                onMouseLeave={() => setHoveredTab(null)}
+                title="Job Application"
+                className={`inline-flex flex-1 sm:flex-initial min-w-0 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                   activeTab === 'job'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-leaf'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
                 }`}
               >
-                <Briefcase size={18} className={activeTab === 'job' ? 'text-leaf' : 'text-slate-400'} />
-                Job Application
+                <Briefcase size={16} className={activeTab === 'job' ? 'text-leaf shrink-0' : 'text-slate-400 shrink-0'} />
+                <span className="sm:hidden">{isJobExpanded ? 'Job Application' : 'Job'}</span>
+                <span className="hidden sm:inline">Job Application</span>
               </button>
               <button
                 type="button"
                 onClick={() => switchTab('skill')}
-                className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-300 ${
+                onMouseEnter={() => setHoveredTab('skill')}
+                onMouseLeave={() => setHoveredTab(null)}
+                title="Skill Development"
+                className={`inline-flex flex-1 sm:flex-initial min-w-0 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                   activeTab === 'skill'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-brand'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
                 }`}
               >
-                <GraduationCap size={18} className={activeTab === 'skill' ? 'text-brand' : 'text-slate-400'} />
-                Skill Development
+                <GraduationCap size={16} className={activeTab === 'skill' ? 'text-brand shrink-0' : 'text-slate-400 shrink-0'} />
+                <span className="sm:hidden">{isSkillExpanded ? 'Skill Development' : 'Skill'}</span>
+                <span className="hidden sm:inline">Skill Development</span>
               </button>
               <button
                 type="button"
                 onClick={() => switchTab('scholarship')}
-                className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-300 ${
+                onMouseEnter={() => setHoveredTab('scholarship')}
+                onMouseLeave={() => setHoveredTab(null)}
+                title="Scholarship Registration"
+                className={`inline-flex flex-1 sm:flex-initial min-w-0 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                   activeTab === 'scholarship'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-amber-500'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
                 }`}
               >
-                <Award size={18} className={activeTab === 'scholarship' ? 'text-amber-400' : 'text-slate-400'} />
-                Scholarship
+                <Award size={16} className={activeTab === 'scholarship' ? 'text-amber-400 shrink-0' : 'text-slate-400 shrink-0'} />
+                <span>Scholarship</span>
               </button>
             </div>
           </div>
