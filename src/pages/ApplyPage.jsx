@@ -62,15 +62,15 @@ export default function ApplyPage({ initialTab }) {
         
         {/* Tab Switcher */}
         <Reveal>
-          <div className="flex justify-center">
-            <div className="inline-flex flex-nowrap justify-center gap-1 sm:gap-2 rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200 w-full sm:w-auto max-w-full overflow-x-auto">
+          <div className="flex justify-center px-1">
+            <div className="inline-flex flex-nowrap items-center justify-center gap-1 sm:gap-2 rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200 max-w-full overflow-x-auto">
               <button
                 type="button"
                 onClick={() => switchTab('job')}
                 onMouseEnter={() => setHoveredTab('job')}
                 onMouseLeave={() => setHoveredTab(null)}
                 title="Job Application"
-                className={`inline-flex flex-1 sm:flex-initial min-w-0 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                className={`inline-flex shrink-0 items-center justify-center gap-1.5 sm:gap-2 rounded-xl px-3 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                   activeTab === 'job'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-leaf'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
@@ -86,7 +86,7 @@ export default function ApplyPage({ initialTab }) {
                 onMouseEnter={() => setHoveredTab('skill')}
                 onMouseLeave={() => setHoveredTab(null)}
                 title="Skill Development"
-                className={`inline-flex flex-1 sm:flex-initial min-w-0 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                className={`inline-flex shrink-0 items-center justify-center gap-1.5 sm:gap-2 rounded-xl px-3 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                   activeTab === 'skill'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-brand'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
@@ -102,7 +102,7 @@ export default function ApplyPage({ initialTab }) {
                 onMouseEnter={() => setHoveredTab('scholarship')}
                 onMouseLeave={() => setHoveredTab(null)}
                 title="Scholarship Registration"
-                className={`inline-flex flex-1 sm:flex-initial min-w-0 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                className={`inline-flex shrink-0 items-center justify-center gap-1.5 sm:gap-2 rounded-xl px-3 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
                   activeTab === 'scholarship'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-amber-500'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'

@@ -267,7 +267,7 @@ export default function SkillDevelopmentForm({ onSuccess }) {
               maxLength={80}
               pattern="^[A-Za-z\s.'-]{2,80}$"
               title="Name must contain only letters, spaces, or hyphens (2–80 characters)."
-              placeholder="e.g. Ananya Rao"
+              placeholder="e.g. Ananya"
               className={fieldClass}
             />
           </label>
