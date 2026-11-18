@@ -38,6 +38,7 @@ export default function App() {
         <Route path="/apply" element={<ApplyPage />} />
         <Route path="/apply/job" element={<ApplyPage initialTab="job" />} />
         <Route path="/apply/skill-development" element={<ApplyPage initialTab="skill" />} />
+        <Route path="/apply/scholarship" element={<ApplyPage initialTab="scholarship" />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

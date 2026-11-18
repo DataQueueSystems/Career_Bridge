@@ -152,8 +152,8 @@ export const FOCUS_AREAS_DATA = [
     tagline: 'Scholarships, book and study material donations, school adoption and government school support programmes promote education, equal opportunities and sustainable social impact.',
     image: socialWelfareImg,
     badge: 'FOCUS AREA 04',
-    applyLink: '/contact',
-    applyText: 'Contact for Community Initiatives',
+    applyLink: '/apply/scholarship',
+    applyText: 'Apply for Scholarship',
     color: {
       brand: 'text-leaf-dark',
       bgSoft: 'bg-leaf-soft',

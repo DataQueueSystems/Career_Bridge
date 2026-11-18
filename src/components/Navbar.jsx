@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Briefcase, GraduationCap} from 'lucide-react';
+import { Menu, X, ChevronDown, Briefcase, GraduationCap, Award } from 'lucide-react';
 import logo from '../assets/careerbridge-foundation-logo.png';
 import { NAV } from '../data/content.js';
 
@@ -135,6 +135,22 @@ export default function Navbar() {
                     <p className="text-xs text-slate-500">Internships, IT & domain training</p>
                   </div>
                 </Link>
+
+                <Link
+                  to="/apply/scholarship"
+                  onClick={() => setApplyDropdownOpen(false)}
+                  className="flex items-start gap-3 rounded-xl p-3 transition duration-200 hover:bg-amber-50 group"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700 group-hover:bg-amber-500 group-hover:text-white transition duration-200">
+                    <Award size={18} />
+                  </span>
+                  <div>
+                    <div className="text-sm font-bold text-navy-900 group-hover:text-amber-700 transition duration-200">
+                      Scholarship Registration
+                    </div>
+                    <p className="text-xs text-slate-500">Financial aid & educational scholarships</p>
+                  </div>
+                </Link>
               </div>
             </li>
           </ul>
@@ -205,6 +221,18 @@ export default function Navbar() {
                   >
                     <GraduationCap size={16} className="text-brand" />
                     <span>Apply for Skill Development</span>
+                  </NavLink>
+                  <NavLink
+                    to="/apply/scholarship"
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 ${
+                        isActive ? 'bg-amber-100 text-amber-800 font-bold' : 'text-slate-700 hover:text-amber-700'
+                      }`
+                    }
+                  >
+                    <Award size={16} className="text-amber-600" />
+                    <span>Apply for Scholarship</span>
                   </NavLink>
                 </div>
               )}

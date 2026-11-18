@@ -142,7 +142,7 @@ export default function JobApplicationForm({ onSuccess }) {
           </div>
         )}
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        {/* <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <button
             type="button"
             onClick={handleReset}
@@ -150,7 +150,7 @@ export default function JobApplicationForm({ onSuccess }) {
           >
             <RotateCcw size={16} /> Submit another application
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }

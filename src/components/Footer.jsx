@@ -44,6 +44,7 @@ export default function Footer() {
             {NAV.map(({ path, label }) => <li key={path}><Link to={path} className={link}>{label}</Link></li>)}
             <li><Link to="/apply/job" className={link}>Apply for Job</Link></li>
             <li><Link to="/apply/skill-development" className={link}>Apply for Skill Development</Link></li>
+            <li><Link to="/apply/scholarship" className={link}>Apply for Scholarship</Link></li>
           </ul>
         </div>
         <div>

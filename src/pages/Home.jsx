@@ -226,6 +226,12 @@ export default function Home() {
                   >
                     <span>Skill Development</span>
                   </Link>
+                  <Link
+                    to="/apply/scholarship"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl border-2 border-amber-500/40 bg-white px-5 py-3 text-sm font-bold text-amber-700 transition active:scale-[0.98] text-center hover:bg-amber-50"
+                  >
+                    <span>Scholarship Registration</span>
+                  </Link>
                 </div>
 
                 {/* Quick Switch Helper */}
@@ -350,6 +356,12 @@ export default function Home() {
                     className="inline-flex items-center gap-2 rounded-xl border border-brand/40 bg-white px-5 py-3.5 text-sm font-bold text-brand transition hover:bg-brand-soft"
                   >
                     <span>Skill Development</span>
+                  </Link>
+                  <Link
+                    to="/apply/scholarship"
+                    className="inline-flex items-center gap-2 rounded-xl border border-amber-500/40 bg-white px-5 py-3.5 text-sm font-bold text-amber-700 transition hover:bg-amber-50"
+                  >
+                    <span>Scholarship</span>
                   </Link>
                 </div>
               </div>

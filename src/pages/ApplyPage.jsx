@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { Briefcase, GraduationCap, CheckCircle2, Phone, Mail, MapPin, Sparkles, ShieldCheck } from 'lucide-react';
+import { Briefcase, GraduationCap, Award, CheckCircle2, Phone, Mail, MapPin, Sparkles, ShieldCheck } from 'lucide-react';
 import PageHeader from '../components/PageHeader.jsx';
 import JobApplicationForm from '../components/JobApplicationForm.jsx';
 import SkillDevelopmentForm from '../components/SkillDevelopmentForm.jsx';
+import ScholarshipApplicationForm from '../components/ScholarshipApplicationForm.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { CONTACT } from '../data/content.js';
 
@@ -13,15 +14,18 @@ export default function ApplyPage({ initialTab }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Determine active tab: 'job' | 'skill'
+  // Determine active tab: 'job' | 'skill' | 'scholarship'
   const [activeTab, setActiveTab] = useState(() => {
     if (initialTab) return initialTab;
+    if (location.pathname.includes('scholarship')) return 'scholarship';
     if (location.pathname.includes('skill-development')) return 'skill';
     return 'job';
   });
 
   useEffect(() => {
-    if (location.pathname.includes('skill-development')) {
+    if (location.pathname.includes('scholarship')) {
+      setActiveTab('scholarship');
+    } else if (location.pathname.includes('skill-development')) {
       setActiveTab('skill');
     } else if (location.pathname.includes('job')) {
       setActiveTab('job');
@@ -30,7 +34,9 @@ export default function ApplyPage({ initialTab }) {
 
   const switchTab = (tab) => {
     setActiveTab(tab);
-    if (tab === 'skill') {
+    if (tab === 'scholarship') {
+      navigate('/apply/scholarship', { replace: true });
+    } else if (tab === 'skill') {
       navigate('/apply/skill-development', { replace: true });
     } else {
       navigate('/apply/job', { replace: true });
@@ -45,7 +51,7 @@ export default function ApplyPage({ initialTab }) {
         // badge="CareerBridge Portal · Registration & Careers"
         bgImage={HERO_BG}
       >
-        Opportunity begins with access. Apply directly for job placement opportunities or register for our hands-on skill development and internship programmes.
+        Opportunity begins with access. Apply directly for job placement opportunities, register for our hands-on skill development programmes, or submit your scholarship registration.
       </PageHeader>
 
       <div className="mx-auto max-w-7xl px-4 pt-10 sm:px-6 lg:px-8">
@@ -53,11 +59,11 @@ export default function ApplyPage({ initialTab }) {
         {/* Tab Switcher */}
         <Reveal>
           <div className="flex justify-center">
-            <div className="inline-flex rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200">
+            <div className="inline-flex flex-wrap justify-center gap-1.5 rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200">
               <button
                 type="button"
                 onClick={() => switchTab('job')}
-                className={`inline-flex items-center gap-2.5 rounded-xl px-6 py-3.5 text-sm font-bold transition-all duration-300 ${
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-300 ${
                   activeTab === 'job'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-leaf'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
@@ -69,7 +75,7 @@ export default function ApplyPage({ initialTab }) {
               <button
                 type="button"
                 onClick={() => switchTab('skill')}
-                className={`inline-flex items-center gap-2.5 rounded-xl px-6 py-3.5 text-sm font-bold transition-all duration-300 ${
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-300 ${
                   activeTab === 'skill'
                     ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-brand'
                     : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
@@ -77,6 +83,18 @@ export default function ApplyPage({ initialTab }) {
               >
                 <GraduationCap size={18} className={activeTab === 'skill' ? 'text-brand' : 'text-slate-400'} />
                 Skill Development
+              </button>
+              <button
+                type="button"
+                onClick={() => switchTab('scholarship')}
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-all duration-300 ${
+                  activeTab === 'scholarship'
+                    ? 'bg-gradient-to-r from-navy-950 to-navy-900 text-white shadow-lg shadow-navy-950/20 ring-2 ring-amber-500'
+                    : 'text-slate-600 hover:text-navy-900 hover:bg-slate-50'
+                }`}
+              >
+                <Award size={18} className={activeTab === 'scholarship' ? 'text-amber-400' : 'text-slate-400'} />
+                Scholarship
               </button>
             </div>
           </div>
@@ -89,8 +107,10 @@ export default function ApplyPage({ initialTab }) {
           <Reveal delay={150} className="w-full min-w-0">
             {activeTab === 'job' ? (
               <JobApplicationForm />
-            ) : (
+            ) : activeTab === 'skill' ? (
               <SkillDevelopmentForm />
+            ) : (
+              <ScholarshipApplicationForm />
             )}
           </Reveal>
 

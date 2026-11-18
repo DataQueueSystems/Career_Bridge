@@ -1,10 +1,11 @@
 /**
  * CareerBridge Foundation - Google Apps Script (Code.gs)
  *
- * Automatically saves to 3 separate sheet tabs:
+ * Automatically saves to 4 separate sheet tabs:
  *  1. 'Job Applications'    -> from /apply/job
  *  2. 'Skill Development'   -> from /apply/skill-development
- *  3. 'Enquiries'           -> from /contact
+ *  3. 'Scholarship'         -> from /apply/scholarship
+ *  4. 'Enquiries'           -> from /contact
  *
  * Sends Orange & Blue branded emails with CareerBridge Logo to:
  *  - Applicant/Candidate confirmation (Owner alerts commented out)
@@ -215,6 +216,22 @@ function doPost(e) {
       const lock = LockService.getScriptLock();
       lock.waitLock(10000);
       try {
+        // Duplicate check: Job Applications sheet (email=col6, phone=col5)
+        const jobDup = isDuplicateByEmailOrPhone(jobSheet, email, phone, 6, 5);
+        if (jobDup.isDuplicate) {
+          return createContactResponse({
+            success: false,
+            saved: false,
+            duplicate: true,
+            submissionId: submissionId,
+            message: jobDup.reason === 'email'
+              ? 'This email address is already registered for Job Applications. Please contact us if you need to update your application.'
+              : jobDup.reason === 'phone'
+              ? 'This contact number is already registered for Job Applications. Please contact us if you need to update your application.'
+              : 'This email and contact number are already registered for Job Applications.'
+          });
+        }
+
         jobSheet.appendRow([
           new Date(), submissionId, name, place, phone, email, qualification
         ]);
@@ -297,6 +314,22 @@ function doPost(e) {
       const lock = LockService.getScriptLock();
       lock.waitLock(10000);
       try {
+        // Duplicate check: Skill Development sheet (email=col6, phone=col5)
+        const skillDup = isDuplicateByEmailOrPhone(skillSheet, email, phone, 6, 5);
+        if (skillDup.isDuplicate) {
+          return createContactResponse({
+            success: false,
+            saved: false,
+            duplicate: true,
+            submissionId: submissionId,
+            message: skillDup.reason === 'email'
+              ? 'This email address is already registered for Skill Development. Please contact us if you need to update your registration.'
+              : skillDup.reason === 'phone'
+              ? 'This contact number is already registered for Skill Development. Please contact us if you need to update your registration.'
+              : 'This email and contact number are already registered for Skill Development.'
+          });
+        }
+
         skillSheet.appendRow([
           new Date(), submissionId, name, place, phone, email, qualification, yearOfCompletion, semester
         ]);
@@ -347,7 +380,107 @@ function doPost(e) {
     }
 
     // =============================================================
-    // 3. Default: Handle Contact Enquiries -> Saves to 'Enquiries' tab
+    // 3. Handle Scholarship Registration -> Saves to 'Scholarship' tab
+    // =============================================================
+    if (formType === 'scholarship' || formType === 'scholarship_registration') {
+      const name = String(data.name || '').trim();
+      const place = String(data.place || '').trim();
+      const collegeName = String(data.collegeName || data.collegename || '').trim();
+      const courseStream = String(data.courseStream || data.course || '').trim();
+      const university = String(data.university || data.iniversity || '').trim();
+      const annualIncome = String(data.annualIncome || data.income || data['incon(pa)'] || '').trim();
+      const guardianOccupation = String(data.guardianOccupation || data.occupation || '').trim();
+      const contact1 = String(data.contact1 || data.phone || data.contactNum1 || '').trim();
+      const contact2 = String(data.contact2 || data.phone2 || data.contactNum2 || '').trim();
+      const email = String(data.email || '').trim();
+
+      if (!name || name.length < 2 || name.length > 80) {
+        throw new Error('Enter a valid name between 2 and 80 characters.');
+      }
+      if (!place || place.length < 2 || place.length > 100) {
+        throw new Error('Enter a valid place/location.');
+      }
+      if (!collegeName) {
+        throw new Error('Enter your college / institution name.');
+      }
+      if (!courseStream) {
+        throw new Error('Enter your course and stream.');
+      }
+      if (!university) {
+        throw new Error('Enter your university / board.');
+      }
+      if (!annualIncome) {
+        throw new Error('Enter your family annual income (P.A.).');
+      }
+      if (!guardianOccupation) {
+        throw new Error('Enter guardian / parent occupation.');
+      }
+      if (!contact1 || (contact1.match(/[0-9]/g) || []).length < 7 || (contact1.match(/[0-9]/g) || []).length > 15) {
+        throw new Error('Enter a valid primary contact number (7–15 digits).');
+      }
+
+      // TARGET: 'Scholarship' sheet
+      const scholarshipSheet = getOrCreateSheet('Scholarship', [
+        'Timestamp', 'Submission ID', 'Full Name', 'Place', 'College Name', 'Course / Stream', 'University / Board', 'Annual Income (P.A.)', 'Guardian Occupation', 'Contact Number 1', 'Contact Number 2', 'Email'
+      ]);
+
+      const lock = LockService.getScriptLock();
+      lock.waitLock(10000);
+      try {
+        // Duplicate check: Scholarship sheet (email=col12, contact1=col10)
+        const scholDup = isDuplicateByEmailOrPhone(scholarshipSheet, email, contact1, 12, 10);
+        if (scholDup.isDuplicate) {
+          return createContactResponse({
+            success: false,
+            saved: false,
+            duplicate: true,
+            submissionId: submissionId,
+            message: scholDup.reason === 'email'
+              ? 'This email address is already registered for a Scholarship. Please contact us if you need to update your application.'
+              : scholDup.reason === 'phone'
+              ? 'This contact number is already registered for a Scholarship. Please contact us if you need to update your application.'
+              : 'This email and contact number are already registered for a Scholarship.'
+          });
+        }
+
+        scholarshipSheet.appendRow([
+          new Date(), submissionId, name, place, collegeName, courseStream, university, annualIncome, guardianOccupation, contact1, contact2, email
+        ]);
+      } finally {
+        lock.releaseLock();
+      }
+
+      // Send User Confirmation Email if valid email provided
+      if (email && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        try {
+          sendScholarshipUserConfirmationEmail({
+            submissionId: submissionId,
+            name: name,
+            place: place,
+            collegeName: collegeName,
+            courseStream: courseStream,
+            university: university,
+            annualIncome: annualIncome,
+            guardianOccupation: guardianOccupation,
+            contact1: contact1,
+            contact2: contact2,
+            email: email
+          });
+        } catch (err) {
+          console.error('Scholarship applicant email error: ' + err);
+        }
+      }
+
+      return createContactResponse({
+        success: true,
+        saved: true,
+        submissionId: submissionId,
+        message: 'Your scholarship application has been submitted successfully to Scholarship.'
+      });
+    }
+
+    // =============================================================
+    // 4. Default: Handle Contact Enquiries -> Saves to 'Enquiries' tab
     // =============================================================
     // TARGET: 'Enquiries' sheet
     const contactSheet = getOrCreateSheet('Enquiries', [
@@ -452,6 +585,38 @@ function isDuplicateEnquiry(sheet, email, phone) {
     return String(row[0] || '').trim().toLowerCase() === normalizedEmail &&
       String(row[1] || '').replace(/\D/g, '') === normalizedPhone;
   });
+}
+
+/**
+ * Check if email OR phone already exists in a sheet.
+ * emailCol and phoneCol are 1-based column indices.
+ * Returns { isDuplicate: true/false, reason: 'email'|'phone'|'both'|null }
+ * Skips the check if the value being checked is empty.
+ */
+function isDuplicateByEmailOrPhone(sheet, email, phone, emailCol, phoneCol) {
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+  const normalizedPhone = String(phone || '').replace(/\D/g, '');
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow < 2) return { isDuplicate: false, reason: null }; // Only header row or empty
+
+  const maxCol = Math.max(emailCol, phoneCol);
+  const data = sheet.getRange(2, 1, lastRow - 1, maxCol).getDisplayValues(); // skip header row 1
+
+  let emailFound = false;
+  let phoneFound = false;
+
+  data.forEach(function(row) {
+    const rowEmail = String(row[emailCol - 1] || '').trim().toLowerCase();
+    const rowPhone = String(row[phoneCol - 1] || '').replace(/\D/g, '');
+    if (normalizedEmail && rowEmail === normalizedEmail) emailFound = true;
+    if (normalizedPhone && rowPhone === normalizedPhone) phoneFound = true;
+  });
+
+  if (emailFound && phoneFound) return { isDuplicate: true, reason: 'both' };
+  if (emailFound) return { isDuplicate: true, reason: 'email' };
+  if (phoneFound) return { isDuplicate: true, reason: 'phone' };
+  return { isDuplicate: false, reason: null };
 }
 
 // =================================================================
@@ -570,6 +735,41 @@ function sendSkillUserConfirmationEmail(data) {
     subject: 'Skill Development Application Received - ' + COMPANY.name,
     body: 'Hi ' + data.name + ',\n\nThank you for enrolling in ' + COMPANY.name +
       ' Skill Development programs. We have received your application. Our counselors will reach out to you with batch schedules and curriculum details.\n\nWarm regards,\nTeam ' + COMPANY.name,
+    htmlBody: wrapEmail(content),
+    inlineImages: { careerbridgeLogo: getCompanyLogo() },
+    name: COMPANY.name
+  });
+}
+
+function sendScholarshipUserConfirmationEmail(data) {
+  const content =
+    '<tr><td style="padding:34px 28px 30px;">' +
+      '<div style="display:inline-block;padding:5px 12px;background:#FFF7ED;border:1px solid #FFEDD5;border-radius:20px;color:' + COMPANY.accent + ';font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Scholarship Application Received</div>' +
+      '<h1 style="margin:0 0 12px;color:' + COMPANY.color + ';font-size:25px;font-weight:800;line-height:1.3;">Welcome, ' + escapeHtml(data.name) + '!</h1>' +
+      '<p style="margin:0 0 20px;color:#475569;font-size:14px;line-height:1.7;">Thank you for registering for the CareerBridge Foundation Scholarship Support programme. Your application details have been recorded. Our scholarship committee will review your submission and reach out regarding further steps.</p>' +
+      '<div style="margin:18px 0;padding:16px 20px;background:#F8FAFC;border:1px solid #E2E8F0;border-left:4px solid ' + COMPANY.accent + ';border-radius:10px;">' +
+        '<div style="font-size:12px;font-weight:700;color:' + COMPANY.color + ';text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Application Summary</div>' +
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:13px;line-height:1.8;">' +
+          '<tr><td style="color:#64748b;width:140px;">Applicant Name:</td><td style="font-weight:700;color:#0F172A;">' + escapeHtml(data.name) + '</td></tr>' +
+          '<tr><td style="color:#64748b;">Place:</td><td style="color:#0F172A;">' + escapeHtml(data.place) + '</td></tr>' +
+          '<tr><td style="color:#64748b;">College Name:</td><td style="font-weight:700;color:#0F172A;">' + escapeHtml(data.collegeName) + '</td></tr>' +
+          '<tr><td style="color:#64748b;">Course & Stream:</td><td style="font-weight:700;color:' + COMPANY.accent + ';">' + escapeHtml(data.courseStream) + '</td></tr>' +
+          '<tr><td style="color:#64748b;">University / Board:</td><td style="color:#0F172A;">' + escapeHtml(data.university) + '</td></tr>' +
+          '<tr><td style="color:#64748b;">Annual Income (P.A.):</td><td style="color:#0F172A;">' + escapeHtml(data.annualIncome) + '</td></tr>' +
+          '<tr><td style="color:#64748b;">Guardian Occupation:</td><td style="color:#0F172A;">' + escapeHtml(data.guardianOccupation) + '</td></tr>' +
+          '<tr><td style="color:#64748b;">Contact Number 1:</td><td style="color:#0F172A;">' + escapeHtml(data.contact1) + '</td></tr>' +
+          (data.contact2 ? '<tr><td style="color:#64748b;">Contact Number 2:</td><td style="color:#0F172A;">' + escapeHtml(data.contact2) + '</td></tr>' : '') +
+        '</table>' +
+      '</div>' +
+      '<p style="margin:24px 0 0;color:#475569;font-size:14px;line-height:1.8;">Warm regards,<br><b style="color:' + COMPANY.color + ';">Scholarship & Social Welfare Committee</b><br>' + escapeHtml(COMPANY.name) + '</p>' +
+    '</td></tr>';
+
+  MailApp.sendEmail({
+    to: data.email,
+    replyTo: COMPANY.email,
+    subject: 'Scholarship Application Received - ' + COMPANY.name,
+    body: 'Hi ' + data.name + ',\n\nThank you for applying for the ' + COMPANY.name +
+      ' Scholarship Programme. We have received your registration details. Our committee will review your application and reach out to you.\n\nWarm regards,\nTeam ' + COMPANY.name,
     htmlBody: wrapEmail(content),
     inlineImages: { careerbridgeLogo: getCompanyLogo() },
     name: COMPANY.name
