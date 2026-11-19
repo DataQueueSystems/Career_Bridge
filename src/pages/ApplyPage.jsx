@@ -63,7 +63,7 @@ export default function ApplyPage({ initialTab }) {
         {/* Tab Switcher */}
         <Reveal>
           <div className="flex justify-center px-1">
-            <div className="inline-flex flex-nowrap items-center justify-center gap-1 sm:gap-2 rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200 max-w-full overflow-x-auto">
+            <div className="inline-flex flex-nowrap items-center justify-center gap-1 sm:gap-2 rounded-2xl bg-white p-1.5 shadow-md ring-1 ring-slate-200 max-w-full overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <button
                 type="button"
                 onClick={() => switchTab('job')}

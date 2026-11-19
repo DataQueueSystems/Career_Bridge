@@ -24,9 +24,14 @@ const QUALIFICATION_MAP = {
     label: 'B.Sc (6 Semesters)',
     options: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6'],
   },
-  'B.Com / BBA': {
+  'B.Com': {
     semesters: 6,
-    label: 'B.Com / BBA (6 Semesters)',
+    label: 'B.Com (6 Semesters)',
+    options: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6'],
+  },
+  'BBA': {
+    semesters: 6,
+    label: 'BBA (6 Semesters)',
     options: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6'],
   },
   'Diploma (Polytechnic / Technical)': {
@@ -39,7 +44,17 @@ const QUALIFICATION_MAP = {
     label: 'MCA (4 Semesters)',
     options: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'],
   },
-  'MBA / M.Tech / M.Sc': {
+  'MBA': {
+    semesters: 4,
+    label: 'Post Graduate (4 Semesters)',
+    options: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'],
+  },
+  'M.Tech': {
+    semesters: 4,
+    label: 'Post Graduate (4 Semesters)',
+    options: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'],
+  },
+  'M.Sc': {
     semesters: 4,
     label: 'Post Graduate (4 Semesters)',
     options: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'],

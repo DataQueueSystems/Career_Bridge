@@ -45,6 +45,11 @@
   }
 }
 
+/* Hide scrollbar for tab switcher */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Global Smooth Transitions & Interactive Accents */
 @layer utilities {
   .smooth-transition {
